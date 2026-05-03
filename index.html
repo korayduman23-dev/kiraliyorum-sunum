@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>KiralıYorum — ZeCorner Stratejik Sunumu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-cream: hsl(36 30% 97%);
+    --bg-dark: hsl(20 14% 11%);
+    --bg-darker: hsl(20 14% 7%);
+    --text-cream: hsl(36 30% 97%);
+    --text-dark: hsl(20 14% 11%);
+    --text-mute: hsl(20 8% 38%);
+    --text-mute-on-dark: hsl(36 14% 65%);
+    --primary: hsl(14 60% 38%);            /* terracotta */
+    --primary-soft: hsl(14 60% 38% / 0.10);
+    --primary-glow: hsl(14 65% 50%);
+    --border: hsl(20 14% 11% / 0.10);
+    --border-on-dark: hsl(36 30% 97% / 0.10);
+
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    --font-mono: 'Geist Mono', 'SF Mono', Menlo, monospace;
+    --font-serif: Georgia, Cambria, 'Times New Roman', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    background: var(--bg-cream);
+    font-feature-settings: "ss01", "ss02", "tnum";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* === Slide framework === */
+  .slide {
+    min-height: 100vh;
+    padding: 80px 96px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .slide.dark { background: var(--bg-dark); color: var(--text-cream); }
+  .slide.darker { background: var(--bg-darker); color: var(--text-cream); }
+  .slide.cream { background: var(--bg-cream); color: var(--text-dark); }
+  @media (max-width: 900px) {
+    .slide { padding: 60px 32px; }
+  }
+
+  /* Slide number stamp */
+  .stamp {
+    position: absolute;
+    top: 32px; right: 48px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-mute);
+  }
+  .dark .stamp, .darker .stamp { color: var(--text-mute-on-dark); }
+
+  /* Brand logo */
+  .brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .brand .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 12px 2px hsl(14 65% 50% / 0.4);
+    align-self: center;
+  }
+  .brand .yorum { color: var(--primary); }
+  .brand-corner {
+    position: absolute; top: 32px; left: 48px;
+    font-size: 14px;
+  }
+
+  /* Eyebrow */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--text-mute);
+    margin-bottom: 20px;
+  }
+  .dark .eyebrow, .darker .eyebrow { color: var(--text-mute-on-dark); }
+
+  /* Display headings */
+  .display {
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 0.96;
+  }
+  h1.display { font-size: clamp(3rem, 7vw, 6rem); }
+  h2.display { font-size: clamp(2.25rem, 5vw, 4rem); }
+  h3 { font-size: clamp(1.25rem, 1.75vw, 1.5rem); font-weight: 500; letter-spacing: -0.02em; }
+
+  .lede {
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.55;
+    color: var(--text-mute);
+    max-width: 60ch;
+    margin-top: 24px;
+  }
+  .dark .lede, .darker .lede { color: var(--text-mute-on-dark); }
+
+  /* Tabular numbers — emphasis */
+  .tnum { font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .num-huge {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: var(--primary);
+  }
+
+  /* Grid layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 32px; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  /* Cards */
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 4px 12px hsl(20 35% 15% / 0.06);
+  }
+  .dark .card, .darker .card {
+    background: hsl(36 30% 97% / 0.04);
+    border-color: var(--border-on-dark);
+    box-shadow: inset 0 1px 0 hsl(36 30% 97% / 0.06);
+    backdrop-filter: blur(20px);
+  }
+  .card .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+  }
+  .dark .card .label, .darker .card .label { color: var(--text-mute-on-dark); }
+  .card h3 { color: inherit; margin-bottom: 12px; }
+  /* Dark slaytlarda kart içeriklerinin okunabilirliği */
+  .dark .card h3, .darker .card h3 { color: white; font-weight: 600; }
+  .dark .card p, .darker .card p { color: hsl(36 14% 88%); }
+  .dark .card ul.clean li, .darker .card ul.clean li { color: hsl(36 14% 92%); }
+
+  /* Pill tag */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    background: var(--primary-soft);
+    color: var(--primary);
+    border: 1px solid hsl(14 60% 38% / 0.2);
+  }
+  .pill.solid { background: var(--primary); color: white; }
+  .pill.outline { background: transparent; border-color: var(--primary); }
+  .dark .pill, .darker .pill { background: hsl(14 60% 38% / 0.18); }
+
+  /* Lists */
+  ul.clean { list-style: none; padding: 0; }
+  ul.clean li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .dark ul.clean li, .darker ul.clean li { border-color: var(--border-on-dark); }
+  ul.clean li:last-child { border-bottom: 0; }
+  ul.clean li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    margin-top: 9px;
+  }
+  ul.clean strong { font-weight: 600; }
+
+  /* === Mock UI components === */
+  .browser-frame {
+    background: hsl(0 0% 100%);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px hsl(20 35% 15% / 0.4),
+                0 10px 20px -8px hsl(20 35% 15% / 0.2);
+    border: 1px solid var(--border);
+  }
+  .dark .browser-frame, .darker .browser-frame { border-color: var(--border-on-dark); }
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: hsl(36 12% 92%);
+    border-bottom: 1px solid hsl(20 14% 11% / 0.08);
+  }
+  .browser-bar .dots { display: flex; gap: 6px; }
+  .browser-bar .dots span {
+    width: 11px; height: 11px; border-radius: 50%;
+  }
+  .browser-bar .dots span:nth-child(1) { background: #FF5F57; }
+  .browser-bar .dots span:nth-child(2) { background: #FEBC2E; }
+  .browser-bar .dots span:nth-child(3) { background: #28C840; }
+  .browser-bar .url {
+    flex: 1;
+    margin-left: 16px;
+    background: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-mute);
+  }
+
+  /* Mock review card on map */
+  .mock-popup {
+    background: hsl(36 30% 99% / 0.96);
+    backdrop-filter: blur(24px) saturate(160%);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 18px 48px -12px hsl(20 14% 9% / 0.4),
+                inset 0 1px 0 hsl(0 0% 100% / 0.6);
+    border: 1px solid hsl(20 14% 11% / 0.08);
+    max-width: 320px;
+  }
+  .mock-popup .rating-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .mock-popup .rating-num {
+    font-size: 22px; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: hsl(142 60% 30%);
+  }
+  .mock-popup .stars { color: hsl(142 60% 30%); letter-spacing: 1px; font-size: 14px; }
+  .mock-popup .meta {
+    font-family: var(--font-mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--text-mute); margin-bottom: 10px;
+  }
+  .mock-popup blockquote {
+    font-size: 13px; line-height: 1.45; color: var(--text-dark);
+    font-style: italic; border-left: 2px solid hsl(20 14% 11% / 0.15);
+    padding-left: 10px; margin-bottom: 12px;
+  }
+  .mock-popup .reviewer-row {
+    display: flex; justify-content: space-between; font-size: 11px;
+    color: var(--text-mute); padding: 8px 0;
+    border-top: 1px solid hsl(20 14% 11% / 0.08);
+    border-bottom: 1px solid hsl(20 14% 11% / 0.08);
+    margin-bottom: 12px;
+  }
+  .mock-popup .cta {
+    display: block; text-align: center;
+    padding: 9px 12px; border-radius: 10px;
+    background: hsl(20 14% 10%); color: white;
+    font-size: 13px; font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* Mock map */
+  .mock-map {
+    position: relative;
+    height: 480px;
+    background:
+      radial-gradient(ellipse at 30% 40%, hsl(40 30% 30%) 0%, hsl(20 14% 11%) 70%),
+      linear-gradient(135deg, hsl(20 14% 11%), hsl(20 14% 7%));
+    overflow: hidden;
+  }
+  .mock-map .grid-overlay {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(hsl(36 30% 97% / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(36 30% 97% / 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .mock-pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .mock-pin .badge {
+    width: 30px; height: 30px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 2px solid white;
+    box-shadow: 0 4px 10px -2px hsl(20 14% 9% / 0.6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: white;
+    font-variant-numeric: tabular-nums;
+  }
+  .mock-pin .badge span { transform: rotate(45deg); }
+  .mock-pin.green .badge { background: hsl(142 65% 38%); }
+  .mock-pin.yellow .badge { background: hsl(40 90% 48%); }
+  .mock-pin.orange .badge { background: hsl(22 85% 50%); }
+  .mock-pin.red .badge { background: hsl(0 70% 48%); }
+  .mock-cluster {
+    position: absolute; transform: translate(-50%, -50%);
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, hsl(14 70% 55%), hsl(14 60% 38%));
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 1px 0 hsla(0,0%,100%,.4), 0 6px 16px -2px hsl(20 14% 9% / 0.5);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .mock-poi {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .mock-poi .icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: white;
+    box-shadow: 0 2px 6px -1px hsl(20 14% 9% / 0.45);
+  }
+  .mock-poi.restaurant .icon { background: hsl(28 80% 48%); }
+  .mock-poi.school .icon { background: hsl(220 65% 50%); }
+  .mock-poi.shopping .icon { background: hsl(280 55% 48%); }
+  .mock-poi.health .icon { background: hsl(0 65% 48%); }
+  .mock-poi .rating {
+    background: hsla(0,0%,100%,.96);
+    color: var(--text-dark);
+    font-size: 9.5px; font-weight: 700;
+    padding: 1px 5px; border-radius: 6px;
+    border: 1px solid hsl(20 14% 11% / 0.08);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .mock-target-pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    width: 44px; height: 44px;
+  }
+  .mock-target-pin svg { width: 100%; height: 100%; filter: drop-shadow(0 6px 12px hsl(14 60% 38% / 0.5)); }
+
+  /* Logo grid */
+  .logo-strip {
+    display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: center;
+    margin-top: 24px;
+  }
+  .logo-strip .logo-item {
+    display: inline-flex; align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: hsl(36 30% 97% / 0.06);
+    border: 1px solid hsl(36 30% 97% / 0.1);
+    border-radius: 8px;
+    font-weight: 500;
+    color: hsl(36 14% 80%);
+  }
+  .light .logo-strip .logo-item {
+    background: white;
+    border-color: var(--border);
+    color: var(--text-dark);
+  }
+  .logo-strip .logo-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* Comparison matrix */
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 32px;
+    background: hsl(36 30% 97% / 0.04);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .matrix th, .matrix td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-on-dark);
+    font-size: 14px;
+  }
+  .matrix th {
+    background: hsl(36 30% 97% / 0.08);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-mute-on-dark);
+    font-weight: 500;
+  }
+  .matrix td.check { color: hsl(142 65% 50%); font-weight: 700; }
+  .matrix td.cross { color: hsl(0 70% 60%); }
+  .matrix tr:last-child td { border-bottom: 0; }
+  .matrix .row-emph { background: hsl(14 60% 38% / 0.12); }
+
+  /* Step accordion */
+  .step {
+    display: flex; gap: 24px; padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .dark .step, .darker .step { border-color: var(--border-on-dark); }
+  .step:last-child { border-bottom: 0; }
+  .step .num {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--primary-soft);
+    color: var(--primary);
+    display: grid; place-items: center;
+    font-family: var(--font-mono);
+    font-size: 14px; font-weight: 600;
+  }
+  .step .body h4 { font-size: 18px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .step .body p { color: var(--text-mute); font-size: 14px; line-height: 1.55; }
+  .dark .step .body p, .darker .step .body p { color: var(--text-mute-on-dark); }
+
+  /* Demo mockup grid */
+  .demo-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 32px;
+  }
+  .demo-shot {
+    background: var(--bg-dark);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border-on-dark);
+    box-shadow: 0 20px 40px -15px hsl(20 14% 9% / 0.5);
+    position: relative;
+    aspect-ratio: 16 / 10;
+  }
+  .demo-shot .label {
+    position: absolute; bottom: 12px; left: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em;
+    color: white; background: hsl(20 14% 9% / 0.7);
+    padding: 6px 10px; border-radius: 6px;
+    backdrop-filter: blur(8px);
+  }
+
+  /* Splash mock */
+  .splash-mock {
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(ellipse at top, hsl(20 14% 7%) 0%, hsl(20 14% 11%) 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative;
+    color: white;
+    padding: 24px;
+  }
+  .splash-mock .eye {
+    font-family: var(--font-mono); font-size: 9px;
+    text-transform: uppercase; letter-spacing: 0.32em;
+    color: hsl(36 14% 65%); margin-bottom: 16px;
+  }
+  .splash-mock .motto {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    line-height: 1.1; text-align: center;
+    max-width: 14ch;
+  }
+  .splash-mock .motto .em {
+    font-family: var(--font-sans);
+    font-style: normal; font-weight: 700;
+    color: var(--primary-glow);
+  }
+
+  /* Form mock */
+  .form-mock {
+    background: var(--bg-cream);
+    padding: 24px; height: 100%;
+    overflow: hidden;
+  }
+  .form-mock .row {
+    margin-bottom: 14px;
+  }
+  .form-mock .lbl {
+    font-family: var(--font-mono); font-size: 9px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--text-mute); margin-bottom: 4px;
+  }
+  .form-mock .input {
+    background: white; border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 10px;
+    font-size: 12px; color: var(--text-dark);
+  }
+  .form-mock .stars { display: flex; gap: 6px; align-items: center; }
+  .form-mock .star { color: hsl(40 90% 48%); font-size: 14px; }
+  .form-mock .star.off { color: hsl(20 14% 80%); }
+
+  /* Roadmap timeline */
+  .timeline {
+    margin-top: 40px; position: relative;
+  }
+  .timeline::before {
+    content: ""; position: absolute; left: 16px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .dark .timeline::before, .darker .timeline::before { background: var(--border-on-dark); }
+  .tl-row {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 18px 0; padding-left: 0;
+    position: relative;
+  }
+  .tl-row .marker {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--primary-soft); color: var(--primary);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+    border: 2px solid var(--bg-cream);
+    z-index: 1; flex-shrink: 0;
+  }
+  .dark .tl-row .marker, .darker .tl-row .marker {
+    border-color: var(--bg-dark);
+    background: hsl(14 60% 38% / 0.2);
+  }
+  .tl-row.done .marker { background: var(--primary); color: white; }
+  .tl-row .content h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .tl-row .content p { font-size: 13px; color: var(--text-mute); line-height: 1.5; }
+  .dark .tl-row .content p, .darker .tl-row .content p { color: var(--text-mute-on-dark); }
+  .tl-row .when {
+    font-family: var(--font-mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--primary); margin-top: 4px;
+  }
+
+  /* Stat strip */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border-on-dark);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-top: 32px;
+  }
+  .stat-strip .stat {
+    background: var(--bg-dark);
+    padding: 28px 24px;
+  }
+  .light .stat-strip { background: var(--border); }
+  .light .stat-strip .stat { background: white; }
+  .stat .num {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .label {
+    font-family: var(--font-mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--text-mute-on-dark); margin-top: 12px;
+  }
+  .light .stat .label { color: var(--text-mute); }
+  @media (max-width: 900px) {
+    .stat-strip { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Cover slide special */
+  .cover {
+    background: var(--bg-darker);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: -10%; right: -10%;
+    width: 60%; aspect-ratio: 1;
+    background: radial-gradient(circle, hsl(14 65% 50% / 0.3) 0%, transparent 70%);
+    filter: blur(60px);
+  }
+  .cover::after {
+    content: "";
+    position: absolute;
+    bottom: -20%; left: -10%;
+    width: 60%; aspect-ratio: 1;
+    background: radial-gradient(circle, hsl(14 60% 38% / 0.25) 0%, transparent 70%);
+    filter: blur(80px);
+  }
+  .cover .content { position: relative; z-index: 1; max-width: 900px; }
+  .cover .meta-row {
+    display: flex; gap: 32px; margin-top: 64px;
+    font-family: var(--font-mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: hsl(36 14% 75%);
+  }
+  .cover .meta-row strong { color: white; font-weight: 600; }
+
+  /* CTA / final */
+  .final {
+    text-align: center;
+    background: linear-gradient(180deg, var(--bg-darker) 0%, hsl(14 60% 14%) 100%);
+    color: white;
+    align-items: center;
+  }
+  .final h1 { max-width: 16ch; margin: 0 auto; }
+  .final .signature {
+    font-family: var(--font-mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: hsl(36 14% 65%); margin-top: 48px;
+  }
+
+  /* Subtle grain on dark slides */
+  .dark::after, .darker::after, .cover::after, .final::after {
+    /* Skipped — gradient already does the job */
+  }
+
+  /* Scroll progress bar */
+  .progress {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: hsl(20 14% 11% / 0.06);
+    z-index: 100;
+  }
+  .progress .fill {
+    height: 100%; background: var(--primary);
+    width: 0; transition: width 0.1s linear;
+  }
+
+  /* Slide nav (top right floating) */
+  .nav {
+    position: fixed; right: 20px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .nav a {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: hsl(20 14% 11% / 0.2);
+    transition: all 0.2s;
+  }
+  .nav a:hover { background: var(--primary); transform: scale(1.4); }
+  @media (max-width: 900px) { .nav { display: none; } }
+
+  /* Highlight inline */
+  .hl { color: var(--primary); font-weight: 600; }
+
+  /* Quote big */
+  .pullquote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+    line-height: 1.3;
+    max-width: 28ch;
+    color: var(--text-dark);
+    border-left: 3px solid var(--primary);
+    padding-left: 24px;
+    margin: 32px 0;
+  }
+  .dark .pullquote, .darker .pullquote { color: var(--text-cream); }
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="fill" id="progressFill"></div></div>
+<nav class="nav">
+  <a href="#s1" title="Kapak"></a>
+  <a href="#s2" title="Problem"></a>
+  <a href="#s3" title="Çözüm"></a>
+  <a href="#s4" title="Demo"></a>
+  <a href="#s5" title="Pin Yorum"></a>
+  <a href="#s6" title="Ürün Derinliği"></a>
+  <a href="#s7" title="Rakip Analizi"></a>
+  <a href="#s8" title="Hukuki Çerçeve"></a>
+  <a href="#s9" title="Doğrulama"></a>
+  <a href="#s10" title="Pazar"></a>
+  <a href="#s11" title="Trakşiyon"></a>
+  <a href="#s12" title="Roadmap"></a>
+  <a href="#s13" title="Gelir"></a>
+  <a href="#s14" title="Yatırım"></a>
+  <a href="#s15" title="ZeCorner"></a>
+  <a href="#s16" title="Vizyon"></a>
+</nav>
+
+<!-- ============================================ -->
+<!-- SLIDE 1 — COVER                              -->
+<!-- ============================================ -->
+<section class="slide cover" id="s1">
+  <div class="brand brand-corner" style="color: white;">
+    <span class="dot"></span>
+    <span>Kiralı<span class="yorum">Yorum</span></span>
+  </div>
+  <span class="stamp">01 / 16 · stratejik sunum</span>
+
+  <div class="content">
+    <div class="eyebrow" style="color: hsl(36 14% 70%);">2026 · ZeCorner Stratejik Görüşmesi</div>
+    <h1 class="display" style="color: white;">
+      Kiracının sesini <span style="color: var(--primary-glow);">veriye</span><br>
+      ev sahibinin <span style="color: var(--primary-glow);">parasına</span> çeviriyoruz.
+    </h1>
+    <p class="lede" style="color: hsl(36 14% 80%); margin-top: 32px;">
+      KiralıYorum, Türkiye'nin <strong style="color: white;">7 milyon kiracılı</strong> konut pazarındaki bilgi
+      asimetrisini kıran ilk yapısal yorum platformu. Glassdoor'un işyeri yorumlarına
+      yaptığını, biz konut için yapıyoruz — KVKK uyumlu, e-Devlet doğrulamalı,
+      adres bazlı.
+    </p>
+    <div class="meta-row">
+      <div><span>Hazırlayan</span><br><strong>Koray Duman · Kurucu</strong></div>
+      <div><span>İletişim</span><br><strong>kiraliyorum.com</strong></div>
+      <div><span>Tarih</span><br><strong>3 Mayıs 2026</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 2 — PROBLEM                            -->
+<!-- ============================================ -->
+<section class="slide cream" id="s2">
+  <div class="brand brand-corner"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">02 · problem</span>
+
+  <div class="eyebrow">Problem</div>
+  <h2 class="display">
+    Türkiye konut pazarı, <span class="hl">karanlıkta</span><br>
+    yapılan en büyük finansal işlem.
+  </h2>
+  <p class="lede">
+    Bir araba alırken bin yorum okursunuz; aylar boyu yaşayacağınız evi ise
+    ilan fotoğraflarına ve emlakçı vaatlerine güvenerek 12 aylık kontratla
+    bağlarsınız. Bu asimetri her yıl <strong>5 milyon insanı</strong> mağdur ediyor.
+  </p>
+
+  <div class="grid-3" style="margin-top: 56px;">
+    <div class="card">
+      <div class="label">Gizli kalan gerçekler</div>
+      <div class="num-huge">68%</div>
+      <h3>Kiracı, taşındıktan sonra önemli bir sorun keşfediyor</h3>
+      <p style="color: var(--text-mute); margin-top: 8px; font-size: 14px; line-height: 1.55;">
+        Kombi arızası, ses yalıtımı, sızıntı, yönetim sorunları, ev sahibinin
+        haksız müdahalesi — kontrat imzalanmadan asla görünmeyen şeyler.
+      </p>
+    </div>
+    <div class="card">
+      <div class="label">Finansal yara</div>
+      <div class="num-huge">₺48K</div>
+      <h3>Ortalama bir kiracının yıllık "asimetri maliyeti"</h3>
+      <p style="color: var(--text-mute); margin-top: 8px; font-size: 14px; line-height: 1.55;">
+        Erken çıkış cezası + depozito kesintisi + nakliye + ek ısınma gideri.
+        Tek doğru bilgi, bu maliyeti sıfırlardı.
+      </p>
+    </div>
+    <div class="card">
+      <div class="label">Güven krizi</div>
+      <div class="num-huge">3.2x</div>
+      <h3>Kiracı şikayetlerinde 5 yıllık artış</h3>
+      <p style="color: var(--text-mute); margin-top: 8px; font-size: 14px; line-height: 1.55;">
+        Tüketici Hakem Heyeti + sulh hukuk dosyaları. İlişki bozulduğunda iki
+        taraf da kaybediyor — sektör güveni eriyor.
+      </p>
+    </div>
+  </div>
+
+  <p class="pullquote" style="margin-top: 56px;">
+    "Otelinizde aldığınız 1 günlük kahvaltıyı puanlayabiliyorsunuz da, 3 yıl
+    yaşadığınız evi neden puanlayamıyorsunuz?"
+  </p>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 3 — ÇÖZÜM                              -->
+<!-- ============================================ -->
+<section class="slide dark" id="s3">
+  <div class="brand brand-corner" style="color: white;"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">03 · çözüm</span>
+
+  <div class="eyebrow">Çözüm</div>
+  <h2 class="display">
+    KiralıYorum, evi tutmadan<br>
+    <em style="font-family: var(--font-serif); color: var(--primary-glow);">yaşayanına</em> danıştırır.
+  </h2>
+  <p class="lede">
+    Üç katmanlı bir veri mimarisi: <strong>doğrulanmış kiracı</strong>,
+    <strong>maskelenmiş ev sahibi</strong>, <strong>adres bazlı yapısal puanlama</strong>.
+    Glassdoor mantığı, Türkiye konut pazarına uyarlandı — KVKK ve 5651 zırhıyla.
+  </p>
+
+  <div class="grid-3" style="margin-top: 64px;">
+    <div class="card">
+      <div class="label">01 · Veri Toplama</div>
+      <h3>Yapısal Yorum Motoru</h3>
+      <ul class="clean" style="margin-top: 16px;">
+        <li><strong>8 kategori puanlama</strong> · 1-5 yıldız (genel, ev sahibi, bakım, depozito, komşu, ısınma, ses, fiyat)</li>
+        <li><strong>500 karakter</strong> serbest metin · hakaret riski sınırlı</li>
+        <li><strong>e-Devlet barkodu</strong> ile doğrulama · sahte yorum filtre</li>
+        <li><strong>n8n hava boşluğu</strong> moderasyon · Claude AI ile otomatik tarama</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="label">02 · Hukuki Zırh</div>
+      <h3>KVKK ve 5651 Uyumlu</h3>
+      <ul class="clean" style="margin-top: 16px;">
+        <li><strong>Ev sahibi adı asla saklanmaz</strong> · sadece "A.Y." maskeli</li>
+        <li><strong>Doğrulama belgeleri 30 gün TTL</strong> · ardından sadece doğrulu damgası kalır</li>
+        <li><strong>Tüm tablolarda RLS aktif</strong> · veri kaçağı sıfır risk</li>
+        <li><strong>5 yıl sonra anonimleştirme</strong> · user_id NULL'a düşer</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="label">03 · Coğrafi Zeka</div>
+      <h3>Adres Bazlı Harita Katmanı</h3>
+      <ul class="clean" style="margin-top: 16px;">
+        <li><strong>UAVT-uyumlu adres parçalama</strong> · Bina/Daire seviyesinde tekillik</li>
+        <li><strong>Google Places + sahibinden.com entegrasyon</strong> · ilan no'dan adrese</li>
+        <li><strong>POI overlay</strong> · okul, restoran, hastane, AVM rating'leri</li>
+        <li><strong>PostGIS spatial query</strong> · pin clustering, milyon ölçeğinde</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 4 — DEMO AKIŞI (4 SS)                  -->
+<!-- ============================================ -->
+<section class="slide cream" id="s4">
+  <div class="brand brand-corner"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">04 · canlı demo</span>
+
+  <div class="eyebrow">Ürün akışı</div>
+  <h2 class="display">Açılıştan ilk yoruma — <span class="hl">90 saniye.</span></h2>
+  <p class="lede">Patron, sıradaki dört ekranda KiralıYorum'un tüm vadini görüyor: marka hissi, harita zekası, doğrulanmış yorum, e-Devlet ile saniyelik onay.</p>
+
+  <div class="demo-grid">
+
+    <!-- SS 1: Splash + Motto -->
+    <div class="demo-shot">
+      <div class="splash-mock">
+        <div class="eye">K I R A L I Y O R U M</div>
+        <div class="motto">
+          Önce <span class="em">yorumla</span>, sonra kirala.
+        </div>
+      </div>
+      <span class="label">01 · Splash + 7 dönen motto</span>
+    </div>
+
+    <!-- SS 2: Harita + Pin Cluster -->
+    <div class="demo-shot">
+      <div class="mock-map" style="height: 100%;">
+        <div class="grid-overlay"></div>
+        <div class="mock-cluster" style="top: 35%; left: 25%;">38</div>
+        <div class="mock-pin green" style="top: 28%; left: 56%;"><div class="badge"><span>5.0</span></div></div>
+        <div class="mock-pin yellow" style="top: 45%; left: 48%;"><div class="badge"><span>4.0</span></div></div>
+        <div class="mock-pin orange" style="top: 60%; left: 65%;"><div class="badge"><span>3.0</span></div></div>
+        <div class="mock-pin red" style="top: 38%; left: 72%;"><div class="badge"><span>2.0</span></div></div>
+        <div class="mock-pin green" style="top: 70%; left: 40%;"><div class="badge"><span>4.5</span></div></div>
+        <div class="mock-pin yellow" style="top: 55%; left: 30%;"><div class="badge"><span>3.5</span></div></div>
+        <div class="mock-poi restaurant" style="top: 50%; left: 55%;"><div class="icon">🍽</div><div class="rating">★ 4.3</div></div>
+        <div class="mock-poi school" style="top: 30%; left: 45%;"><div class="icon">🎓</div><div class="rating">★ 4.7</div></div>
+        <div class="mock-poi shopping" style="top: 65%; left: 55%;"><div class="icon">🛍</div><div class="rating">★ 4.1</div></div>
+        <div class="mock-poi health" style="top: 42%; left: 38%;"><div class="icon">✚</div><div class="rating">★ 4.5</div></div>
+      </div>
+      <span class="label">02 · Harita + clustering + POI rating</span>
+    </div>
+
+    <!-- SS 3: Pin tıklandı popup -->
+    <div class="demo-shot">
+      <div class="mock-map" style="height: 100%; padding: 24px; display: flex; align-items: center; justify-content: center;">
+        <div class="grid-overlay"></div>
+        <div class="mock-popup" style="position: relative; z-index: 1;">
+          <div class="rating-row">
+            <span class="rating-num">5.0</span>
+            <span class="stars">★★★★★</span>
+          </div>
+          <div class="meta">No: 48 · D: 15 · 2 yorum</div>
+          <blockquote>
+            "Üç sene oturdum, tek sorun yaşamadım. Depozito sorunsuz iade edildi."
+          </blockquote>
+          <div class="reviewer-row">
+            <span>Kiracı: <strong>Ahmet Y.</strong></span>
+            <span>Ev sahibi: <strong>S.B.</strong></span>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); text-align: center; margin-bottom: 10px;">
+            ₺18.000 — ₺25.000
+          </div>
+          <a class="cta">Daireyi gör →</a>
+        </div>
+      </div>
+      <span class="label">03 · Pin → maskeli yorum + ev sahibi</span>
+    </div>
+
+    <!-- SS 4: Yorum yaz formu -->
+    <div class="demo-shot">
+      <div class="form-mock">
+        <div style="font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--text-mute); margin-bottom: 4px;">02 / 04</div>
+        <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px;">Puan ver, kelime kullanma.</div>
+        <div class="row" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div class="lbl">Genel memnuniyet</div>
+          </div>
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span></div>
+        </div>
+        <div class="row" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div class="lbl">Ev sahibi</div>
+          </div>
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
+        </div>
+        <div class="row" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div class="lbl">Bakım & tamir</div>
+          </div>
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        </div>
+        <div class="row" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div class="lbl">Komşular</div>
+          </div>
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
+        </div>
+        <div class="row" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div class="lbl">Isınma · Ses · Fiyat</div>
+          </div>
+          <div style="font-size: 11px; color: var(--text-mute); font-family: var(--font-mono);">+ 4 kategori</div>
+        </div>
+      </div>
+      <span class="label">04 · 8 eksen yapısal puanlama</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 5 — PIN YORUM DETAYI                   -->
+<!-- ============================================ -->
+<section class="slide darker" id="s5">
+  <div class="brand brand-corner" style="color: white;"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">05 · Pin yorum görünümü</span>
+
+  <div class="grid-2" style="margin-top: 0; align-items: center; gap: 64px;">
+    <div>
+      <div class="eyebrow">Tek tıkla şeffaflık</div>
+      <h2 class="display">
+        Her pin, bir <span style="color: var(--primary-glow);">duvarın hikâyesi.</span>
+      </h2>
+      <p class="lede">
+        Harita üzerindeki her renk kodlu pin tek tıkla açılır:
+        <strong style="color: white;">5 yıldız puan</strong>, <strong style="color: white;">doğrulanmış kiracı</strong>,
+        <strong style="color: white;">maskelenmiş ev sahibi</strong>, <strong style="color: white;">son kira aralığı</strong>.
+      </p>
+      <ul class="clean" style="margin-top: 32px;">
+        <li><strong>Yeşil pin:</strong> 4.5+ memnuniyet — tavsiye edilir</li>
+        <li><strong>Sarı pin:</strong> 3.0–4.4 — karışık yorumlar</li>
+        <li><strong>Turuncu/Kırmızı:</strong> 3.0 altı — dikkat etmeniz gereken adres</li>
+        <li><strong>Kümeler (cluster):</strong> Yoğun bölgelerde otomatik özet</li>
+      </ul>
+    </div>
+
+    <!-- Detaylı pin popup -->
+    <div style="display: flex; justify-content: center;">
+      <div class="mock-popup" style="max-width: 360px; transform: scale(1.15); transform-origin: center;">
+        <div class="rating-row">
+          <span class="rating-num" style="color: hsl(40 80% 38%);">4.5</span>
+          <span class="stars" style="color: hsl(40 80% 38%);">★★★★⯨</span>
+        </div>
+        <div class="meta">Ortaköy Mah. · Pırıl Sok. · No: 14 D: 7 · 4 yorum</div>
+        <blockquote>
+          "Bina yeni, asansör çalışıyor, otopark var. Ev sahibi tamiratları
+          7 gün içinde hallediyor. Tek eksi: yaz aylarında klima şart."
+        </blockquote>
+        <div class="reviewer-row">
+          <span>Kiracı: <strong>Selin Y.</strong></span>
+          <span>Ev sahibi: <strong>M.K.</strong></span>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); text-align: center; margin-bottom: 10px;">
+          ₺22.000 — ₺28.000 / ay
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">
+          <span class="pill" style="background: hsl(142 65% 38% / 0.15); color: hsl(142 65% 28%); border-color: hsl(142 65% 38% / 0.3); font-size: 9px;">e-Devlet doğrulu</span>
+          <span class="pill" style="background: hsl(220 65% 50% / 0.15); color: hsl(220 65% 40%); border-color: hsl(220 65% 50% / 0.3); font-size: 9px;">36 ay oturmuş</span>
+        </div>
+        <a class="cta">Daireyi gör →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 6 — ÜRÜN DERİNLİĞİ (PropTech)          -->
+<!-- ============================================ -->
+<section class="slide cream" id="s6">
+  <div class="brand brand-corner"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">06 · ürün derinliği</span>
+
+  <div class="eyebrow">PropTech Intelligence Engine</div>
+  <h2 class="display">
+    Yorum sadece başlangıç. <br>
+    Asıl moat: <span class="hl">veri katmanı.</span>
+  </h2>
+  <p class="lede">
+    Her yorum, bir veri noktası. Her veri noktası bir araya gelince Türkiye'nin
+    en büyük "yaşam kalitesi" haritası oluşuyor — kimsenin kopyalayamayacağı
+    network etkisi.
+  </p>
+
+  <div class="grid-2" style="margin-top: 56px;">
+    <div class="card">
+      <div class="label">Kentsel Analiz Modülleri</div>
+      <ul class="clean" style="margin-top: 12px;">
+        <li><strong>Güvenlik skoru:</strong> Bölgesel asayiş + NLP tabanlı yerel haber tarama</li>
+        <li><strong>Yaşam kalitesi:</strong> PM2.5 hava + gürültü haritası + yeşil alan oranı</li>
+        <li><strong>Erişilebilirlik:</strong> Metro / durak / ana arter "gerçek yürüyüş" mesafesi</li>
+        <li><strong>Sosyal doku:</strong> Hastane, eczane, market, cafe yoğunluk matrisi</li>
+        <li><strong>Demografi:</strong> Mahalle yaş ortalaması, aile/öğrenci dağılımı</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="label">Agentic AI Katmanı</div>
+      <ul class="clean" style="margin-top: 12px;">
+        <li><strong>Kişiselleştirilmiş eşleşme:</strong> Sessizlik, işe yakınlık, çocuklu aile uyumuna göre otonom öneri</li>
+        <li><strong>Adil kira algoritması:</strong> Geçmiş veri + bölge trendi → suni şişirme tespit</li>
+        <li><strong>Risk skoru:</strong> Yorumlardaki anomalilerden bina/sokak risk projeksiyonu</li>
+        <li><strong>Yatırım önerisi:</strong> "Bu mahalle 18 ayda 3x kira artışı potansiyeli" sinyali</li>
+        <li><strong>LLM doğal dil arayüzü:</strong> "Çocuklu aile için Kadıköy'de 25k bütçeyle ne öneriyor?"</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 7 — RAKİP ANALİZİ                      -->
+<!-- ============================================ -->
+<section class="slide dark" id="s7">
+  <div class="brand brand-corner" style="color: white;"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">07 · rakip analizi</span>
+
+  <div class="eyebrow">Kategori yaratıyoruz</div>
+  <h2 class="display">
+    Türkiye'de yok. Dünyada bile<br>
+    <span style="color: var(--primary-glow);">tam bizim gibisi yok.</span>
+  </h2>
+  <p class="lede">
+    Mevcut oyuncular ya <strong>ilan sitesi</strong> (sahibinden, hepsiemlak), ya <strong>franchise zinciri</strong>
+    (Coldwell Banker, Keller Williams), ya da <strong>genel yorum platformu</strong> (Glassdoor — işyeri, Trustpilot — marka).
+    Hiçbiri "doğrulanmış kiracı yorumu × adres" kesişiminde değil.
+  </p>
+
+  <div style="margin-top: 56px;">
+    <div class="eyebrow" style="margin-bottom: 16px;">Türkiye'deki ilan / franchise oyuncuları</div>
+    <div class="logo-strip">
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#FFE600"><circle cx="12" cy="12" r="10"/></svg>
+        sahibinden.com
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#FF6B35"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+        hepsiemlak
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#0066CC"><polygon points="12,2 22,12 12,22 2,12"/></svg>
+        Emlakjet
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#00B488"><circle cx="12" cy="12" r="10"/></svg>
+        Zingat
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#C8202F"><polygon points="12,2 22,22 2,22"/></svg>
+        Coldwell Banker
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#CC0000"><rect x="3" y="3" width="18" height="18"/></svg>
+        Keller Williams
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#003DA5"><polygon points="12,2 22,12 12,22 2,12"/></svg>
+        RE/MAX
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#BEAF87"><circle cx="12" cy="12" r="10"/></svg>
+        Century 21
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px;">
+    <div class="eyebrow" style="margin-bottom: 16px;">Global PropTech / yorum platformları</div>
+    <div class="logo-strip">
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#006AFF"><polygon points="3,21 12,3 21,21"/></svg>
+        Zillow (US)
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#0F4C81"><circle cx="12" cy="12" r="10"/></svg>
+        Trulia (US)
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#A02021"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        Redfin (US)
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#7AC143"><polygon points="12,2 22,12 12,22 2,12"/></svg>
+        Rightmove (UK)
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#FF7F33"><circle cx="12" cy="12" r="10"/></svg>
+        Idealista (ES)
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#005FA1"><rect x="3" y="3" width="18" height="18"/></svg>
+        ImmoScout24 (DE)
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#0CAA41"><polygon points="3,21 12,3 21,21"/></svg>
+        Glassdoor (referans)
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 24 24" fill="#00B67A"><circle cx="12" cy="12" r="10"/></svg>
+        Trustpilot (referans)
+      </div>
+    </div>
+  </div>
+
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th>Özellik</th>
+        <th>Sahibinden / Hepsiemlak</th>
+        <th>Zillow / Trulia</th>
+        <th>Coldwell / KW Türkiye</th>
+        <th>KiralıYorum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Doğrulanmış kiracı yorumu</td>
+        <td class="cross">—</td>
+        <td>kısmen (mahalle, bina değil)</td>
+        <td class="cross">—</td>
+        <td class="check">✓ adres bazlı</td>
+      </tr>
+      <tr>
+        <td>e-Devlet ile doğrulama</td>
+        <td class="cross">—</td>
+        <td class="cross">—</td>
+        <td class="cross">—</td>
+        <td class="check">✓ birincil yol</td>
+      </tr>
+      <tr>
+        <td>Ev sahibi puanlaması (KVKK)</td>
+        <td class="cross">—</td>
+        <td class="cross">—</td>
+        <td class="cross">—</td>
+        <td class="check">✓ maskeli</td>
+      </tr>
+      <tr class="row-emph">
+        <td><strong>Yapısal 8 eksen puanlama</strong></td>
+        <td class="cross">—</td>
+        <td class="cross">—</td>
+        <td class="cross">—</td>
+        <td class="check"><strong>✓ benzersiz</strong></td>
+      </tr>
+      <tr>
+        <td>Adres normalleştirme (UAVT)</td>
+        <td>kısmen</td>
+        <td class="check">USPS standart</td>
+        <td class="cross">—</td>
+        <td class="check">✓ tam UAVT</td>
+      </tr>
+      <tr>
+        <td>POI rating overlay</td>
+        <td class="cross">—</td>
+        <td>kısmen</td>
+        <td class="cross">—</td>
+        <td class="check">✓ Google Places</td>
+      </tr>
+      <tr>
+        <td>Sahibinden ilan no entegrasyonu</td>
+        <td>kendi içinde</td>
+        <td>n/a</td>
+        <td class="cross">—</td>
+        <td class="check">✓ URL/no ile</td>
+      </tr>
+      <tr>
+        <td>n8n hava boşluğu moderasyon</td>
+        <td class="cross">—</td>
+        <td class="cross">—</td>
+        <td class="cross">—</td>
+        <td class="check">✓ Claude AI</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 8 — HUKUKİ ÇERÇEVE                     -->
+<!-- ============================================ -->
+<section class="slide cream" id="s8">
+  <div class="brand brand-corner"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">08 · hukuki zırh</span>
+
+  <div class="eyebrow">Hukuki Çerçeve</div>
+  <h2 class="display">
+    Türkiye'de yorum platformu kurmak<br>
+    sadece teknik değil — <span class="hl">hukuki bir mimari.</span>
+  </h2>
+  <p class="lede">
+    KVKK + 5651 + TBK 49 (hakaret/iftira) çerçevesinde tasarladık. Her teknik
+    karar bir yasal soruyu cevaplıyor. Mahkemede savunulabilir bir platform.
+  </p>
+
+  <div class="grid-2" style="margin-top: 48px; gap: 24px;">
+    <div class="card">
+      <span class="pill solid">KVKK · Kişisel Verilerin Korunması</span>
+      <h3 style="margin-top: 16px;">Ev sahibi adı SİSTEMDE YOK</h3>
+      <p style="color: var(--text-mute); font-size: 14px; line-height: 1.55; margin-top: 8px;">
+        Hiçbir tabloda ev sahibi tam ismi saklanmaz. Form alanına yazılan isim
+        anında client-side maskelenir, server'a yalnızca <strong>"A.Y."</strong> gibi
+        baş harfler ulaşır. Veri minimum prensibinin ötesine geçiyoruz.
+      </p>
+      <ul class="clean" style="margin-top: 12px;">
+        <li>Doğrulama belgeleri 30 gün TTL ardından silinir</li>
+        <li>e-Devlet barkodu plain saklanmaz, SHA-256 hash</li>
+        <li>5 yıl sonra yorum user_id NULL → tam anonimleştirme</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="pill solid">5651 · İçerik Sorumluluğu</span>
+      <h3 style="margin-top: 16px;">Moderasyon Hava Boşluğu (n8n + AI)</h3>
+      <p style="color: var(--text-mute); font-size: 14px; line-height: 1.55; margin-top: 8px;">
+        Tek bir yorum bile <strong>moderasyondan geçmeden</strong> public olamaz.
+        Webhook → n8n → Claude AI taraması → şüphelide Slack/Discord onay düğmesi.
+        Yer sağlayıcı sorumluluğu net.
+      </p>
+      <ul class="clean" style="margin-top: 12px;">
+        <li>500 karakter sınırı — tirad/manifesto risk azaltır</li>
+        <li>8 eksen yapısal puanlama → hakaret yerine veri</li>
+        <li>İçerik kaldırma talebi 24 saat SLA'sı</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="pill outline">TBK 49 · Haksız Fiil</span>
+      <h3 style="margin-top: 16px;">Doğru, kamuya açık, ölçülü</h3>
+      <p style="color: var(--text-mute); font-size: 14px; line-height: 1.55; margin-top: 8px;">
+        Üst mahkeme içtihatlarına göre yorum üç kriteri sağlarsa korunur:
+        gerçeklik + kamu yararı + ölçülülük. Yapısal puanlama bu üçünü de
+        otomatik karşılar — "5 yıldız" "rezalet" demekten daha güvenli.
+      </p>
+    </div>
+    <div class="card">
+      <span class="pill outline">e-Devlet Entegrasyonu</span>
+      <h3 style="margin-top: 16px;">Sahte yorumun kalbi durur</h3>
+      <p style="color: var(--text-mute); font-size: 14px; line-height: 1.55; margin-top: 8px;">
+        Kira sözleşmesi e-Devlet'te kayıtlıysa <strong>16 haneli barkod</strong>
+        yorumcunun adres + tarih eşleşmesini saniyeler içinde doğrular.
+        Bot, troll, rakip sabotajı imkânsız.
+      </p>
+      <ul class="clean" style="margin-top: 12px;">
+        <li>OCR yedek (kira sözleşmesi fotoğrafı, 30 gün TTL)</li>
+        <li>Fatura/DASK belgesi manuel inceleme</li>
+        <li>e-Devlet birincil yol → 0 saniyede onay</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 9 — DOĞRULAMA MİMARİSİ                 -->
+<!-- ============================================ -->
+<section class="slide dark" id="s9">
+  <div class="brand brand-corner" style="color: white;"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">09 · doğrulama akışı</span>
+
+  <div class="eyebrow">Doğrulama Mimarisi</div>
+  <h2 class="display">
+    Tek bir <span style="color: var(--primary-glow);">sahte yorum</span> bile<br>
+    sistemden geçemez.
+  </h2>
+  <p class="lede">
+    Beş seviyeli kullanıcı doğrulama. Yorum yazmak için seviye 2 zorunlu.
+    Premium veri için 4. e-Devlet birincil yol — manuel inceleme yedek.
+  </p>
+
+  <div class="grid-2" style="margin-top: 48px; gap: 48px; align-items: center;">
+    <div>
+      <div class="step">
+        <div class="num">0</div>
+        <div class="body">
+          <h4>E-posta onaylandı</h4>
+          <p>Kayıt + magic link sonrası. Sayfayı gezebilir, yorum okuyabilir; yazamaz.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">1</div>
+        <div class="body">
+          <h4>Telefon (SMS) onayı</h4>
+          <p>Opsiyonel ek katman. Spam direnci için.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div class="body">
+          <h4>e-Devlet barkod doğrulandı <span class="pill" style="font-size: 9px;">YORUM YETKİSİ</span></h4>
+          <p>16 haneli barkod, kira sözleşmesini e-Devlet'te aynı anda eşler. Saniyeler içinde sonuç.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div class="body">
+          <h4>Belge OCR doğrulandı</h4>
+          <p>e-Devlet alternatifi: kira sözleşmesi fotoğrafı + Google Vision OCR. 30 gün sonra silinir.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div class="body">
+          <h4>KYC tam doğrulanmış (TC kimlik) <span class="pill" style="font-size: 9px; background: hsl(220 65% 50% / 0.18); color: hsl(220 80% 70%); border-color: hsl(220 65% 50% / 0.3);">PREMIUM</span></h4>
+          <p>Faz 3, premium katman. Maaş bordrosu + adres teyidi → kira başvurusu uygunluk skoru.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- e-Devlet logo + entegrasyon görseli -->
+    <div class="card" style="text-align: center; padding: 48px 32px;">
+      <div style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--text-mute-on-dark); margin-bottom: 24px;">
+        Resmi Entegrasyon
+      </div>
+      <!-- e-Devlet logo (stilize) -->
+      <div style="display: inline-flex; align-items: center; gap: 16px; padding: 24px 32px; background: hsl(36 30% 97% / 0.06); border: 1px solid hsl(36 30% 97% / 0.15); border-radius: 14px;">
+        <div style="width: 48px; height: 48px; background: #C8202F; border-radius: 8px; display: grid; place-items: center; color: white; font-weight: 800; font-size: 20px; letter-spacing: -0.05em;">
+          e&#8209;D
+        </div>
+        <div style="text-align: left;">
+          <div style="color: white; font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">e-Devlet Kapısı</div>
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-mute-on-dark); margin-top: 2px;">turkiye.gov.tr</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; line-height: 1.6; color: var(--text-mute-on-dark); margin-top: 32px; max-width: 32ch; margin-left: auto; margin-right: auto;">
+        T.C. Cumhurbaşkanlığı Dijital Dönüşüm Ofisi nezdinde
+        <strong style="color: white;">Kira Sözleşmesi Sorgulama API</strong> entegrasyon başvurusu
+        Q3 2026'da yapılacak. PoC'da SHA-256 barkod hash mimarisi
+        kuruldu — gerçek API açıldığı an plug-and-play.
+      </p>
+      <div class="pill" style="margin-top: 24px;">
+        Lansman koşulu: e-Devlet onayı
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 10 — PAZAR POTANSİYELİ                 -->
+<!-- ============================================ -->
+<section class="slide cream" id="s10">
+  <div class="brand brand-corner"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">10 · pazar</span>
+
+  <div class="eyebrow">Pazar Potansiyeli</div>
+  <h2 class="display">
+    7 milyon kiracı.<br>
+    1.2 milyon işlem. <span class="hl">Tek platform.</span>
+  </h2>
+  <p class="lede">
+    TÜİK 2024: konut sahipliği oranı düşüyor (%56), kiracı oranı yükseliyor (%27.8).
+    Türkiye'de hâlâ <strong>doğrulanmış kiracı yorum havuzu</strong> yok — biz inşa
+    ediyoruz.
+  </p>
+
+  <div class="stat-strip light">
+    <div class="stat">
+      <div class="num">7M</div>
+      <div class="label">Toplam kiracı hane (TAM)</div>
+    </div>
+    <div class="stat">
+      <div class="num">2.5M</div>
+      <div class="label">Dijital kiracı (SAM)</div>
+    </div>
+    <div class="stat">
+      <div class="num">1.2M</div>
+      <div class="label">Yıllık yeni kiralama</div>
+    </div>
+    <div class="stat">
+      <div class="num">₺820B</div>
+      <div class="label">Yıllık konut kira ekonomisi</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 56px;">
+    <div class="card">
+      <div class="label">Hedef segmentler</div>
+      <h3>Önce kim taşınır?</h3>
+      <ul class="clean" style="margin-top: 12px;">
+        <li><strong>25-40 yaş, üniversite mezunu, beyaz yaka</strong> · 2.5M kişi</li>
+        <li><strong>Üniversite öğrencisi</strong> · ev arkadaşı + güven odaklı, 850K kişi</li>
+        <li><strong>Tayinli memur / atanmış doktor</strong> · şehir değiştiren güvensiz kitle, 320K/yıl</li>
+        <li><strong>Boşandıktan sonra ev arayan</strong> · KVKK hassasiyeti yüksek, 180K/yıl</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="label">Hedeflediğimiz pazar payı</div>
+      <h3>3. yıl sonunda %5</h3>
+      <p style="color: var(--text-mute); font-size: 14px; line-height: 1.6; margin-top: 12px;">
+        Yıllık 1.2M işlemden <strong style="color: var(--primary);">60.000 kiralama</strong> akışına
+        doğrudan veri/hizmet sağlamak. Sahibinden bunu 25 yılda yaptı; biz 3 yılda
+        yapacağız çünkü <strong>kullanıcının zaten yapmak istediği</strong>
+        bir şeyi (yorum yazma) kolaylaştırıyoruz, yeni davranış öğretmiyoruz.
+      </p>
+      <div style="display: flex; gap: 32px; margin-top: 24px;">
+        <div>
+          <div style="font-size: 32px; font-weight: 600; color: var(--primary); letter-spacing: -0.03em;">60K</div>
+          <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-mute);">Yıllık etkilenen işlem</div>
+        </div>
+        <div>
+          <div style="font-size: 32px; font-weight: 600; color: var(--primary); letter-spacing: -0.03em;">2.4M</div>
+          <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-mute);">3 yıl içinde toplam yorum</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 11 — TRAKSİYON                         -->
+<!-- ============================================ -->
+<section class="slide dark" id="s11">
+  <div class="brand brand-corner" style="color: white;"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">11 · trakşiyon</span>
+
+  <div class="eyebrow">Şu Anki Durum</div>
+  <h2 class="display">
+    PoC tamam. Mimari ölçek için<br>
+    <span style="color: var(--primary-glow);">milyonlara hazır.</span>
+  </h2>
+  <p class="lede">
+    Şu an çalışır halde 8 sayfa, 9 PostgreSQL migration, KVKK uyumlu RLS,
+    e-Devlet barkod hash mimarisi, sahibinden URL parser, Google Places adres
+    entegrasyonu, harita üzerinde clustering + POI overlay. Lansmanda 1. günden
+    milyon ölçeğine geçiş için PostGIS spatial query'leri hazır.
+  </p>
+
+  <div class="stat-strip">
+    <div class="stat">
+      <div class="num">8</div>
+      <div class="label">Production sayfa</div>
+    </div>
+    <div class="stat">
+      <div class="num">9</div>
+      <div class="label">RLS uyumlu migration</div>
+    </div>
+    <div class="stat">
+      <div class="num">112</div>
+      <div class="label">Demo mock mülk (PoC)</div>
+    </div>
+    <div class="stat">
+      <div class="num">∞</div>
+      <div class="label">Lansman ölçek hedefi</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 48px;">
+    <div class="card">
+      <div class="label">Tamamlanan teknik altyapı</div>
+      <ul class="clean" style="margin-top: 12px;">
+        <li>Next.js 15 App Router + TypeScript strict</li>
+        <li>Supabase PostgreSQL + PostGIS + 9 migration</li>
+        <li>Tailwind + shadcn/ui + tutarlı tasarım sistemi</li>
+        <li>Google Places API entegrasyonu (production-ready)</li>
+        <li>sahibinden.com URL slug parser + ilan no resolver</li>
+        <li>Leaflet + marker clustering (milyon pin ölçeğine hazır)</li>
+        <li>e-Devlet barkod SHA-256 hash mimarisi</li>
+        <li>n8n moderasyon webhook iskeleti</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="label">Sırada ne var (12 ay)</div>
+      <ul class="clean" style="margin-top: 12px;">
+        <li><strong>Q3 2026:</strong> Kapalı beta — 5.000 kullanıcı, İstanbul Anadolu yakası</li>
+        <li><strong>Q4 2026:</strong> e-Devlet API açılışı + Türkiye geneli alfa</li>
+        <li><strong>Q1 2027:</strong> Milyon kullanıcı hedefi + B2B dashboard</li>
+        <li><strong>Q2 2027:</strong> ZeCorner pilot entegrasyonu (bu sunum konusu)</li>
+        <li><strong>Q3 2027:</strong> Mobil app (iOS + Android)</li>
+        <li><strong>Q4 2027:</strong> AI eşleşme + adil kira algoritması v1</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 12 — ROADMAP                           -->
+<!-- ============================================ -->
+<section class="slide cream" id="s12">
+  <div class="brand brand-corner"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">12 · 36 aylık plan</span>
+
+  <div class="eyebrow">Roadmap</div>
+  <h2 class="display">36 ayda <span class="hl">kategori liderliği.</span></h2>
+
+  <div class="timeline">
+    <div class="tl-row done">
+      <div class="marker">✓</div>
+      <div class="content">
+        <h4>Sprint 0 — Mimari karar + PoC <span class="when" style="display: inline-block; margin-left: 12px;">Mayıs 2026</span></h4>
+        <p>Stratejik plan, tech stack kararı, tasarım sistemi, demo veri, harita + sahibinden + e-Devlet hash mimarisi.</p>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="marker">1</div>
+      <div class="content">
+        <h4>Sprint 1-3 — Kapalı beta <span class="when" style="display: inline-block; margin-left: 12px;">Haz–Ağu 2026</span></h4>
+        <p>Auth (e-posta + Google + e-Devlet sandbox), gerçek mülk veritabanı (UAVT), yorum formu canlı, ilk 5.000 davetli kullanıcı.</p>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="marker">2</div>
+      <div class="content">
+        <h4>Sprint 4-5 — Lansman <span class="when" style="display: inline-block; margin-left: 12px;">Eyl–Eki 2026</span></h4>
+        <p>e-Devlet üretim entegrasyonu, n8n moderasyon canlı, SEO sayfaları, mahalle rehberleri içerik fabrikası, halka açık beta.</p>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="marker">3</div>
+      <div class="content">
+        <h4>Sprint 6-8 — Ölçek <span class="when" style="display: inline-block; margin-left: 12px;">Kas 2026 – Şub 2027</span></h4>
+        <p>Mobil PWA, push notifications, ev sahibi sahiplenme (claim) sistemi, Adil Kira algoritması v1, B2B API ilk 3 partner.</p>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="marker">4</div>
+      <div class="content">
+        <h4>Faz 2 — B2B platform <span class="when" style="display: inline-block; margin-left: 12px;">Mar – Ağu 2027</span></h4>
+        <p>"KiralıYorum Onaylı" rozet sistemi, bina yönetimi dashboard'u, gayrimenkul franchise zincirlerine API (ZeCorner pilot dahil).</p>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="marker">5</div>
+      <div class="content">
+        <h4>Faz 3 — AI + uluslararası <span class="when" style="display: inline-block; margin-left: 12px;">Eyl 2027 – ileri</span></h4>
+        <p>Türkçe konut LLM fine-tuning, doğal dil arayüz ("3 çocuklu, 25k bütçe, sessiz mahalle"), Avrupa pilot (KKTC + Almanya Türk diasporası).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 13 — GELİR MODELİ                      -->
+<!-- ============================================ -->
+<section class="slide darker" id="s13">
+  <div class="brand brand-corner" style="color: white;"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">13 · gelir modeli</span>
+
+  <div class="eyebrow">Gelir Modeli</div>
+  <h2 class="display">
+    Veri akar, <span style="color: var(--primary-glow);">değer büyür.</span><br>
+    5 farklı kanal, tek platform.
+  </h2>
+  <p class="lede">
+    Network etkili platform: kullanıcı arttıkça veri zenginleşir, veri
+    zenginleştikçe B2B değeri artar. Hem kiracıdan, hem ev sahibinden,
+    hem ekosistemden gelir.
+  </p>
+
+  <div class="grid-2" style="margin-top: 48px;">
+    <div class="card">
+      <span class="pill solid">B2C · Kullanıcı</span>
+      <h3 style="margin-top: 16px;">Kiracı freemium + Premium</h3>
+      <ul class="clean" style="margin-top: 12px;">
+        <li><strong>Yorum okumak ücretsiz</strong> · network etkisi için kritik</li>
+        <li><strong>Premium ekspertiz raporu:</strong> ₺49/daire · derinlikli risk + kira projeksiyonu</li>
+        <li><strong>KiralıYorum Plus:</strong> ₺29/ay · sınırsız rapor + favori uyarıları + adil kira hesaplayıcı</li>
+        <li><strong>Eşleşme servisi:</strong> doğrulanmış kiracıyı doğrulanmış mülke bağlama, %1 komisyon</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="pill solid">B2B · Kurumsal</span>
+      <h3 style="margin-top: 16px;">Veri & rozet & dashboard</h3>
+      <ul class="clean" style="margin-top: 12px;">
+        <li><strong>"KiralıYorum Onaylı" rozeti:</strong> ₺2.400/yıl · bina yönetimleri için</li>
+        <li><strong>B2B Dashboard:</strong> ₺18.000/yıl · gayrimenkul danışmanlık ofisleri</li>
+        <li><strong>DaaS API:</strong> ₺120.000+/yıl · gayrimenkul geliştiricilere bölge analiz aboneliği</li>
+        <li><strong>Sigorta partnership:</strong> kiracı/ev sahibi sigorta ürünlerinde komisyon</li>
+        <li><strong>Bankacılık:</strong> "kira ödeme skoru" → konut kredisi puanlama girdisi</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 56px; padding: 32px; background: hsl(14 60% 38% / 0.12); border-left: 4px solid var(--primary); border-radius: 8px;">
+    <div class="eyebrow" style="color: var(--primary-glow); margin-bottom: 8px;">3 yıllık tahmini gelir</div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+      <div>
+        <div style="font-size: 36px; font-weight: 500; color: white; letter-spacing: -0.04em; line-height: 1;">$120K</div>
+        <div style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-mute-on-dark); margin-top: 8px;">Yıl 1 — Beta + erken Premium</div>
+      </div>
+      <div>
+        <div style="font-size: 36px; font-weight: 500; color: white; letter-spacing: -0.04em; line-height: 1;">$1.8M</div>
+        <div style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-mute-on-dark); margin-top: 8px;">Yıl 2 — B2C ölçek + ilk B2B</div>
+      </div>
+      <div>
+        <div style="font-size: 36px; font-weight: 500; color: white; letter-spacing: -0.04em; line-height: 1;">$8.5M</div>
+        <div style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-mute-on-dark); margin-top: 8px;">Yıl 3 — DaaS + sigorta + ZeCorner</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 14 — YATIRIM & BÜTÇE                   -->
+<!-- ============================================ -->
+<section class="slide cream" id="s14">
+  <div class="brand brand-corner"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp">14 · yatırım planı</span>
+
+  <div class="eyebrow">3 Yıllık Yatırım</div>
+  <h2 class="display">
+    <span class="hl">$1.1M</span> bütçe, <span class="hl">$30K/ay</span> yakıt.<br>
+    Sermaye değil — füzeye yakıt.
+  </h2>
+  <p class="lede">
+    Toplam 36 aylık operasyon için $1.1M. Bu para AI mühendisliğine, hukuki
+    altyapıya ve mahalle bazlı içerik fabrikasına gidiyor — vanity'ye değil.
+    Her doların geri dönüşü ölçülebilir milestone'a bağlı.
+  </p>
+
+  <table class="matrix" style="background: white; color: var(--text-dark);">
+    <thead>
+      <tr>
+        <th style="background: var(--bg-dark); color: white;">Kategori</th>
+        <th style="background: var(--bg-dark); color: white;">3 Yıl Bütçe</th>
+        <th style="background: var(--bg-dark); color: white;">Detaylar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ar-Ge & AI Mühendisliği</strong></td>
+        <td><strong style="color: var(--primary);">$450,000</strong></td>
+        <td>Senior backend (Next.js + PostGIS), AI engineer (LLM fine-tune), n8n otomasyon mimarisi, mobile (RN/Flutter). Yıl 2 itibarıyla 5 kişilik teknik ekip.</td>
+      </tr>
+      <tr>
+        <td><strong>Pazarlama & Büyüme</strong></td>
+        <td><strong style="color: var(--primary);">$350,000</strong></td>
+        <td>Semt bazlı mikro-hedefleme (Meta/Google), SEO içerik fabrikası (mahalle rehberleri), micro-influencer + üniversite topluluk, viral motor (her yorum 3 davet).</td>
+      </tr>
+      <tr>
+        <td><strong>Operasyonel Altyapı</strong></td>
+        <td><strong style="color: var(--primary);">$300,000</strong></td>
+        <td>Cloud (Supabase Enterprise + Vercel Pro + Cloudflare), Google Maps API ($5K/ay tavan), GPU (LLM inference), KVKK hukuki danışmanlık, e-Devlet B2B sözleşme.</td>
+      </tr>
+      <tr style="background: hsl(14 60% 38% / 0.08);">
+        <td><strong>TOPLAM (3 yıl)</strong></td>
+        <td><strong style="color: var(--primary); font-size: 18px;">$1,100,000</strong></td>
+        <td><strong>Burn rate:</strong> ~$30K/ay · <strong>Runway:</strong> 36 ay · <strong>Break-even:</strong> Ay 28</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-3" style="margin-top: 48px;">
+    <div class="card">
+      <div class="label">Tur tipi</div>
+      <h3>Stratejik Pre-Seed</h3>
+      <p style="color: var(--text-mute); font-size: 14px; line-height: 1.55; margin-top: 8px;">
+        Geleneksel VC değil, <strong>sektör içi stratejik ortak</strong> arıyoruz.
+        ZeCorner gibi distribution + güven sermayesi getiren ortaklar
+        bizim için $5M VC'den değerli.
+      </p>
+    </div>
+    <div class="card">
+      <div class="label">Değerleme</div>
+      <h3>$5.5M post-money</h3>
+      <p style="color: var(--text-mute); font-size: 14px; line-height: 1.55; margin-top: 8px;">
+        $1.1M karşılığında <strong>%20 hisse</strong>. 3. yıl sonu hedef
+        değerleme: $35M (B serisi). 7x getiri potansiyeli, çok daha
+        düşük risk profili.
+      </p>
+    </div>
+    <div class="card">
+      <div class="label">Çıkış senaryosu</div>
+      <h3>5 yıl, 3 patika</h3>
+      <p style="color: var(--text-mute); font-size: 14px; line-height: 1.55; margin-top: 8px;">
+        (a) Sahibinden / hepsiemlak satınalma · (b) Uluslararası PropTech (Idealista, Rightmove) konsolidasyonu · (c) Halka arz (Borsa İstanbul fintek/proptech segmenti).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 15 — ZECORNER İÇİN ÖZEL                -->
+<!-- ============================================ -->
+<section class="slide darker" id="s15" style="background: linear-gradient(135deg, hsl(20 14% 7%) 0%, hsl(14 40% 14%) 100%); color: white;">
+  <div class="brand brand-corner" style="color: white;"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp" style="color: hsl(36 14% 65%);">15 · zecorner için özel</span>
+
+  <div class="eyebrow" style="color: var(--primary-glow);">ZeCorner × KiralıYorum</div>
+  <h2 class="display">
+    Coldwell, KW, RE/MAX'in yapamadığını<br>
+    ZeCorner ilk kim yapacak?<br>
+    <span style="color: var(--primary-glow);">"Yorumlu emlakçılık."</span>
+  </h2>
+  <p class="lede" style="color: hsl(36 14% 80%); max-width: 70ch;">
+    Dünya gayrimenkul franchise oyuncuları ilan dolaşımı + koçluk satıyor.
+    Hiçbiri kiracı yorumunu ürünleştirmedi. ZeCorner, KiralıYorum ile entegre
+    olduğunda <strong style="color: white;">Türkiye'de ve sonra Avrupa'da kategori lideri</strong>
+    olabilir — bizim hızımızda hareket edebilen başka franchise yok.
+  </p>
+
+  <div class="grid-3" style="margin-top: 56px;">
+    <div class="card">
+      <span class="pill solid">ZeCorner için Değer 1</span>
+      <h3 style="margin-top: 14px; color: white; font-weight: 600;">Ofislere "ünlü ev" pipeline'ı</h3>
+      <p style="color: hsl(36 14% 92%); font-size: 14.5px; line-height: 1.65; margin-top: 10px;">
+        KiralıYorum'da 5.0 puanlı binalar otomatik <strong style="color: white;">"ZeCorner Onaylı Daire"</strong>
+        rozeti alır. ZeCorner danışmanları bu binaların yöneticilerine "yıllık portfolyo
+        yönetim sözleşmesi" satar. <strong style="color: var(--primary-glow);">Her doğru
+        adres = ortalama ₺18K yıllık komisyon.</strong>
+      </p>
+    </div>
+    <div class="card">
+      <span class="pill solid">ZeCorner için Değer 2</span>
+      <h3 style="margin-top: 14px; color: white; font-weight: 600;">Marka konumlanması</h3>
+      <p style="color: hsl(36 14% 92%); font-size: 14.5px; line-height: 1.65; margin-top: 10px;">
+        <strong style="color: white;">"Sadece ev satmıyoruz, doğru evi gösteriyoruz"</strong>
+        mesajı. Coldwell/KW reklamı: jenerik ofis fotoğrafları. ZeCorner reklamı:
+        <em style="color: var(--primary-glow); font-style: normal; font-weight: 600;">"Bağdat Caddesi'nde 4.8 puanlı binalar — kiracılar konuştu."</em>
+        Kategori lideri konumlanma.
+      </p>
+    </div>
+    <div class="card">
+      <span class="pill solid">ZeCorner için Değer 3</span>
+      <h3 style="margin-top: 14px; color: white; font-weight: 600;">Veri tekeli</h3>
+      <p style="color: hsl(36 14% 92%); font-size: 14.5px; line-height: 1.65; margin-top: 10px;">
+        ZeCorner, KiralıYorum'un <strong style="color: var(--primary-glow);">münhasır franchise partneri</strong>
+        olarak Türkiye gayrimenkul B2B veri katmanını ele geçirir. Rakipler
+        sahibinden ilanı satarken siz "doğrulanmış yorum verisi" satarsınız.
+        <strong style="color: white;">Tekrar üretilemeyen avantaj.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top: 56px; padding: 40px; border: 2px solid var(--primary); border-radius: 16px; background: hsl(14 60% 38% / 0.08);">
+    <div class="eyebrow" style="color: var(--primary-glow);">Önerimiz</div>
+    <h3 style="font-size: 28px; color: white; margin-bottom: 16px; font-weight: 500; letter-spacing: -0.02em;">
+      ZeCorner — KiralıYorum stratejik ortaklığı
+    </h3>
+    <div class="grid-3" style="margin-top: 20px;">
+      <div>
+        <div class="num-huge" style="color: var(--primary-glow); font-size: 48px;">$500K</div>
+        <p style="font-size: 13px; color: hsl(36 14% 80%); margin-top: 8px; line-height: 1.5;">
+          ZeCorner stratejik yatırım<br>
+          (toplam $1.1M turun yarısı)
+        </p>
+      </div>
+      <div>
+        <div class="num-huge" style="color: var(--primary-glow); font-size: 48px;">%12</div>
+        <p style="font-size: 13px; color: hsl(36 14% 80%); margin-top: 8px; line-height: 1.5;">
+          KiralıYorum hisse +<br>
+          1 yönetim kurulu koltuğu
+        </p>
+      </div>
+      <div>
+        <div class="num-huge" style="color: var(--primary-glow); font-size: 48px;">5 yıl</div>
+        <p style="font-size: 13px; color: hsl(36 14% 80%); margin-top: 8px; line-height: 1.5;">
+          Münhasır franchise B2B<br>
+          partnership Türkiye + KKTC
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 16 — VİZYON / KAPANIŞ                  -->
+<!-- ============================================ -->
+<section class="slide final" id="s16">
+  <div class="brand brand-corner" style="color: white;"><span class="dot"></span><span>Kiralı<span class="yorum">Yorum</span></span></div>
+  <span class="stamp" style="color: hsl(36 14% 60%);">16 / 16 · vizyon</span>
+
+  <div class="content" style="max-width: 900px; margin: 0 auto; text-align: center;">
+    <div class="eyebrow" style="color: var(--primary-glow);">Vizyon</div>
+    <h1 class="display">
+      10 yıl içinde <em style="font-family: var(--font-serif); color: var(--primary-glow);">"hangi mahalleye taşınalım?"</em>
+      sorusunun ilk cevabı KiralıYorum.
+    </h1>
+
+    <p class="lede" style="color: hsl(36 14% 80%); max-width: 60ch; margin: 32px auto;">
+      Bugün 7 milyon kiracının haksızlık hikâyesi var. KiralıYorum bu
+      hikâyeleri yapısal veriye, veriyi güvene, güveni de yeni nesil emlakçılığa
+      çevirir. ZeCorner ile birlikte bu yolculuğu 3 yıl kısaltırız.
+    </p>
+
+    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 48px;">
+      <span class="pill solid" style="font-size: 12px; padding: 10px 20px;">7M Kiracı</span>
+      <span class="pill solid" style="font-size: 12px; padding: 10px 20px;">e-Devlet Onaylı</span>
+      <span class="pill solid" style="font-size: 12px; padding: 10px 20px;">KVKK Uyumlu</span>
+      <span class="pill solid" style="font-size: 12px; padding: 10px 20px;">PoC Hazır</span>
+      <span class="pill solid" style="font-size: 12px; padding: 10px 20px;">36 Ay Plan</span>
+      <span class="pill solid" style="font-size: 12px; padding: 10px 20px;">$5.5M Değerleme</span>
+    </div>
+
+    <div class="signature">
+      Koray Duman · Kurucu<br>
+      kiraliyorum.com · 3 Mayıs 2026
+    </div>
+
+    <div style="margin-top: 56px; padding-top: 32px; border-top: 1px solid hsl(36 14% 65% / 0.2); font-family: var(--font-serif); font-style: italic; font-size: 20px; color: hsl(36 14% 75%); max-width: 36ch; margin-left: auto; margin-right: auto;">
+      "Önce <span style="font-family: var(--font-sans); font-style: normal; font-weight: 700; color: var(--primary-glow);">yorumla</span>, sonra kirala."
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll progress bar
+  const fill = document.getElementById('progressFill');
+  function updateProgress() {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+    fill.style.width = (scrolled * 100) + '%';
+  }
+  window.addEventListener('scroll', updateProgress);
+  updateProgress();
+
+  // Keyboard navigation: arrow keys + space
+  const slides = document.querySelectorAll('.slide');
+  function currentSlide() {
+    const y = window.scrollY + 100;
+    let active = 0;
+    slides.forEach((s, i) => { if (s.offsetTop <= y) active = i; });
+    return active;
+  }
+  document.addEventListener('keydown', (e) => {
+    const i = currentSlide();
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
+      e.preventDefault();
+      const next = slides[Math.min(i + 1, slides.length - 1)];
+      next?.scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)) {
+      e.preventDefault();
+      const prev = slides[Math.max(i - 1, 0)];
+      prev?.scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      slides[0].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      slides[slides.length - 1].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+
+</body>
+</html>
