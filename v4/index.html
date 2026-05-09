@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>KiralıYorum — <span class="zc">ZeCorner</span> Stratejik Sunumu V4</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
+
+<style>
+  /* =========================================================
+     KiralıYorum V3 — Editorial Pitch Deck
+     1920×1080, deck-stage scaled
+     Palette: terracotta primary + emerald secondary + warm paper
+     ========================================================= */
+
+  :root {
+    /* Surfaces */
+    --paper: hsl(38 28% 95%);
+    --paper-warm: hsl(36 32% 92%);
+    --ink: hsl(20 14% 11%);
+    --ink-deep: hsl(20 14% 7%);
+    --ink-soft: hsl(20 12% 18%);
+
+    /* Brand */
+    --terracotta: hsl(14 60% 38%);
+    --terracotta-glow: hsl(14 70% 52%);
+    --terracotta-soft: hsl(14 60% 38% / 0.10);
+
+    --emerald: hsl(158 60% 30%);
+    --emerald-glow: hsl(158 65% 42%);
+    --emerald-soft: hsl(158 60% 30% / 0.10);
+
+    --brass: hsl(38 75% 48%);
+
+    /* Text */
+    --text-on-paper: hsl(20 14% 11%);
+    --text-mute: hsl(20 8% 38%);
+    --text-on-ink: hsl(38 28% 95%);
+    --text-mute-on-ink: hsl(36 14% 65%);
+
+    --rule: hsl(20 14% 11% / 0.12);
+    --rule-on-ink: hsl(38 28% 95% / 0.12);
+
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-mono: 'Geist Mono', 'SF Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--ink-deep);
+    color: var(--text-on-paper);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "ss02", "tnum", "kern";
+  }
+
+  /* =====================================================
+     SLIDE — fixed 1920×1080
+     ===================================================== */
+  .slide {
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+    padding: 56px 110px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--paper);
+    color: var(--text-on-paper);
+  }
+  .slide.ink { background: var(--ink); color: var(--text-on-ink); }
+  .slide.ink-deep { background: var(--ink-deep); color: var(--text-on-ink); }
+  .slide.warm { background: var(--paper-warm); color: var(--text-on-paper); }
+
+  /* Header rail (every slide) */
+  .rail {
+    position: absolute;
+    top: 48px; left: 120px; right: 120px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .ink .rail, .ink-deep .rail { color: var(--text-mute-on-ink); }
+  .rail .wordmark {
+    display: inline-flex; align-items: baseline; gap: 9px;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--text-on-paper);
+  }
+  .ink .rail .wordmark, .ink-deep .rail .wordmark { color: var(--text-on-ink); }
+  .rail .wordmark .key {
+    display: inline-block;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    box-shadow: 0 0 0 3px var(--terracotta-soft), 0 0 14px var(--terracotta-glow);
+    transform: translateY(-1px);
+  }
+  /* Kiralı | Yorum — bitişik yazım + ince gri ayırıcı çubuk
+     `.yor::before` flex gap'ini negatif margin ile nötralize eder, sonra
+     gri vertical bar ekler. Sonuç: dot — Kiralı│Yorum */
+  .rail .wordmark .yor {
+    color: var(--terracotta);
+    margin-left: -9px;
+    padding-left: 8px;
+    position: relative;
+  }
+  .rail .wordmark .yor::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 8%;
+    bottom: 8%;
+    width: 1px;
+    background: hsl(20 14% 50%);
+  }
+  .ink .rail .wordmark .yor::before,
+  .ink-deep .rail .wordmark .yor::before {
+    background: hsl(36 18% 60%);
+  }
+  .rail .right { display: flex; gap: 32px; align-items: center; }
+  .rail .right .crumb { display: flex; gap: 8px; align-items: center; }
+
+  /* <span class="zc">ZeCorner</span> adı için kurumsal styling — turuncu gradient + bold.
+     Marka kimliği vurgulanır, sunum boyunca tutarlı görünüm. */
+  .zc {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, hsl(22 95% 52%), hsl(14 75% 45%));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  @supports not (background-clip: text) {
+    .zc { color: hsl(20 90% 45%); background: none; -webkit-text-fill-color: initial; }
+  }
+  .ink .zc, .ink-deep .zc {
+    background: linear-gradient(135deg, hsl(22 95% 60%), hsl(14 70% 55%));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* Bottom rule (every slide) */
+  .footer-rule {
+    position: absolute;
+    bottom: 56px; left: 120px; right: 120px;
+    height: 1px; background: var(--rule);
+  }
+  .ink .footer-rule, .ink-deep .footer-rule { background: var(--rule-on-ink); }
+  .foot-meta {
+    position: absolute;
+    bottom: 32px; left: 120px; right: 120px;
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .ink .foot-meta, .ink-deep .foot-meta { color: var(--text-mute-on-ink); }
+
+  /* =====================================================
+     TYPOGRAPHY SYSTEM
+     ===================================================== */
+  .display {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 112px;
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .display-xl {
+    font-size: 156px;
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+  }
+  .display-sm {
+    font-size: 76px;
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .h2 {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .h3 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .h4 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .lede {
+    font-size: 26px;
+    line-height: 1.5;
+    color: var(--text-mute);
+    max-width: 26em;
+    font-weight: 400;
+    text-wrap: pretty;
+  }
+  .ink .lede, .ink-deep .lede { color: var(--text-mute-on-ink); }
+  .lede strong { color: var(--text-on-paper); font-weight: 600; }
+  .ink .lede strong, .ink-deep .lede strong { color: var(--text-on-ink); }
+
+  .body {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--text-mute);
+  }
+  .ink .body, .ink-deep .body { color: var(--text-mute-on-ink); }
+
+  /* Editorial italic pull — Source Serif */
+  .editorial {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 56px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--terracotta);
+  }
+  .ink .editorial, .ink-deep .editorial { color: var(--terracotta-glow); }
+
+  /* Eyebrow */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--text-mute);
+    margin-bottom: 24px;
+    display: inline-flex; gap: 12px; align-items: center;
+  }
+  .ink .eyebrow, .ink-deep .eyebrow { color: var(--terracotta-glow); }
+  .eyebrow::before {
+    content: ""; width: 24px; height: 1px;
+    background: currentColor;
+  }
+
+  /* Hero numbers — editorial */
+  .num-hero {
+    font-family: var(--font-sans);
+    font-size: 168px;
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    line-height: 0.88;
+    color: var(--terracotta);
+    font-variant-numeric: tabular-nums;
+  }
+  .num-hero.emerald { color: var(--emerald); }
+  .ink .num-hero.emerald, .ink-deep .num-hero.emerald { color: var(--emerald-glow); }
+  .num-hero sub {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--text-mute);
+    margin-left: 4px;
+    letter-spacing: 0;
+  }
+  .ink .num-hero sub, .ink-deep .num-hero sub { color: var(--text-mute-on-ink); }
+
+  .num-big {
+    font-size: 96px; font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: var(--terracotta);
+    font-variant-numeric: tabular-nums;
+  }
+  .num-mid {
+    font-size: 48px; font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Inline emphasis */
+  .hl { color: var(--terracotta); font-weight: 600; }
+  .hl-em { color: var(--emerald); font-weight: 600; }
+  .ink .hl-em, .ink-deep .hl-em { color: var(--emerald-glow); }
+  .hl-key { color: var(--terracotta-glow); font-weight: 600; }
+
+  /* Pills / tags */
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    background: var(--terracotta-soft);
+    color: var(--terracotta);
+    border: 1px solid hsl(14 60% 38% / 0.25);
+    font-weight: 500;
+  }
+  .pill.solid { background: var(--terracotta); color: white; border-color: transparent; }
+  .pill.emerald { background: var(--emerald-soft); color: var(--emerald); border-color: hsl(158 60% 30% / 0.25); }
+  .pill.emerald.solid { background: var(--emerald); color: white; border-color: transparent; }
+  .pill.dark { background: hsl(20 14% 11% / 0.06); color: var(--text-on-paper); border-color: hsl(20 14% 11% / 0.18); }
+  .ink .pill.dark, .ink-deep .pill.dark { background: hsl(38 28% 95% / 0.08); color: var(--text-on-ink); border-color: hsl(38 28% 95% / 0.2); }
+
+  .pill .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: currentColor; flex-shrink: 0;
+  }
+
+  /* =====================================================
+     LAYOUT PRIMITIVES
+     ===================================================== */
+  .stack { display: flex; flex-direction: column; }
+  .row { display: flex; }
+  .grow { flex: 1; }
+  .gap-8 { gap: 8px; }
+  .gap-12 { gap: 12px; }
+  .gap-16 { gap: 16px; }
+  .gap-24 { gap: 24px; }
+  .gap-32 { gap: 32px; }
+  .gap-48 { gap: 48px; }
+  .gap-64 { gap: 64px; }
+  .center { align-items: center; }
+  .end { align-items: flex-end; }
+  .between { justify-content: space-between; }
+  .max-w-1200 { max-width: 1200px; }
+  .max-w-960 { max-width: 960px; }
+  .max-w-720 { max-width: 720px; }
+  .max-w-560 { max-width: 560px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+
+  /* =====================================================
+     CARD VARIANTS
+     ===================================================== */
+  .card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 32px;
+  }
+  .ink .card, .ink-deep .card {
+    background: hsl(38 28% 95% / 0.04);
+    border-color: var(--rule-on-ink);
+  }
+  .card.featured {
+    background: var(--ink);
+    color: var(--text-on-ink);
+    border: 0;
+    box-shadow: 0 30px 60px -25px hsl(20 14% 9% / 0.4);
+  }
+  .ink .card.featured, .ink-deep .card.featured {
+    background: white;
+    color: var(--text-on-paper);
+  }
+  .card.terracotta {
+    background: var(--terracotta);
+    color: white;
+    border: 0;
+  }
+  .card.emerald {
+    background: var(--emerald);
+    color: white;
+    border: 0;
+  }
+  .card .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-mute);
+    margin-bottom: 14px;
+    display: block;
+  }
+  .card.terracotta .label, .card.emerald .label { color: hsl(0 0% 100% / 0.65); }
+  .ink .card .label, .ink-deep .card .label { color: var(--text-mute-on-ink); }
+
+  /* Clean lists */
+  ul.clean {
+    list-style: none;
+    padding: 0;
+    margin-top: 12px;
+  }
+  ul.clean li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .ink ul.clean li, .ink-deep ul.clean li { border-bottom-color: var(--rule-on-ink); }
+  ul.clean li:last-child { border-bottom: 0; }
+  ul.clean li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    margin-top: 9px;
+  }
+  ul.clean li.em::before { background: var(--emerald); }
+  ul.clean strong { font-weight: 600; }
+
+  ul.tight {
+    list-style: none; padding: 0; margin-top: 8px;
+  }
+  ul.tight li {
+    padding: 6px 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-mute);
+  }
+  .ink ul.tight li, .ink-deep ul.tight li { color: var(--text-mute-on-ink); }
+  ul.tight li::before {
+    content: "—  ";
+    color: var(--terracotta);
+    font-weight: 600;
+  }
+
+  /* Footnote / source */
+  .source {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+  .ink .source, .ink-deep .source { color: var(--text-mute-on-ink); }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: COVER (s1)
+     ===================================================== */
+  .cover {
+    background: var(--ink-deep);
+    color: var(--text-on-ink);
+    padding: 56px 110px;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 900px; height: 900px;
+    background: radial-gradient(circle, hsl(14 70% 52% / 0.22) 0%, transparent 60%);
+    filter: blur(40px);
+  }
+  .cover::after {
+    content: "";
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, hsl(158 65% 35% / 0.15) 0%, transparent 65%);
+    filter: blur(50px);
+  }
+  .cover .inner { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .cover h1 { color: white; }
+  .cover h1 em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--terracotta-glow);
+    font-weight: 400;
+  }
+  .cover h1 .em-emerald {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--emerald-glow);
+    font-weight: 400;
+  }
+  .cover .meta-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 40px;
+    margin-top: 28px;
+    margin-bottom: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: hsl(36 14% 70%);
+  }
+  .cover .meta-grid strong {
+    display: block;
+    color: white;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    margin-top: 10px;
+  }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: PROBLEM (s2)
+     story column + stat strip
+     ===================================================== */
+  .case-block {
+    background: var(--paper-warm);
+    border-left: 3px solid var(--terracotta);
+    padding: 32px 40px;
+    border-radius: 0 8px 8px 0;
+  }
+  .case-block .who {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 14px;
+  }
+  .case-block p {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .case-block p:not(:last-child) { margin-bottom: 14px; }
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+  }
+  .stat-strip .cell {
+    background: white;
+    padding: 36px 32px;
+  }
+  .stat-strip .cell .num {
+    font-size: 88px; font-weight: 600;
+    letter-spacing: -0.04em; line-height: 0.95;
+    color: var(--terracotta);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-strip .cell .label-mono {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-top: 12px;
+    margin-bottom: 8px;
+  }
+  .stat-strip .cell h4 { font-size: 18px; font-weight: 600; line-height: 1.3; }
+  .stat-strip .cell .src {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-mute);
+    margin-top: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: TWO MOVES (s3-s4-s5)
+     ===================================================== */
+  .move-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 220px;
+    line-height: 0.85;
+    color: var(--terracotta);
+    letter-spacing: -0.04em;
+  }
+  .move-num.em { color: var(--emerald-glow); }
+
+  .move-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .ink .move-tag, .ink-deep .move-tag { color: var(--text-mute-on-ink); }
+
+  /* K-Pass 6-step flow */
+  .kpass-flow {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .kpass-step {
+    background: hsl(38 28% 95% / 0.06);
+    border: 1px solid hsl(38 28% 95% / 0.14);
+    border-radius: 14px;
+    padding: 22px 20px;
+    position: relative;
+    min-height: 220px;
+  }
+  .kpass-step .stepnum {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--emerald-glow);
+    margin-bottom: 14px;
+  }
+  .kpass-step .stepicon {
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    background: hsl(158 65% 42% / 0.15);
+    border: 1px solid hsl(158 65% 42% / 0.3);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    color: var(--emerald-glow);
+  }
+  .kpass-step .stepicon svg { width: 18px; height: 18px; }
+  .kpass-step h4 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .kpass-step p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: hsl(36 14% 75%);
+  }
+  .kpass-step .arrow {
+    position: absolute;
+    right: -10px; top: 50%;
+    transform: translateY(-50%);
+    color: hsl(38 28% 95% / 0.2);
+    font-size: 18px;
+    z-index: 2;
+  }
+  .kpass-step:last-child .arrow { display: none; }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: DEMO MOSAIC (s6)
+     ===================================================== */
+  .demo-mosaic {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+    height: 620px;
+  }
+  .demo-shot {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    position: relative;
+    background: var(--ink);
+  }
+  .demo-shot.span-row { grid-row: span 2; }
+  .demo-shot img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .demo-shot .label {
+    position: absolute;
+    bottom: 16px; left: 18px;
+    background: hsl(20 14% 9% / 0.78);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+  }
+  .demo-shot.form-shot {
+    background: var(--paper-warm);
+    padding: 30px;
+    color: var(--text-on-paper);
+  }
+  .demo-shot.form-shot .form-head {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 8px;
+  }
+  .demo-shot.form-shot .form-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+  }
+  .demo-shot.form-shot .row-line {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+  }
+  .demo-shot.form-shot .row-line:last-child { border-bottom: 0; }
+  .demo-shot.form-shot .lbl-form {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .demo-shot.form-shot .stars-row { display: flex; gap: 4px; color: var(--terracotta); font-size: 16px; }
+  .demo-shot.form-shot .stars-row .off { color: hsl(20 12% 80%); }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: WHY UNCOPYABLE (4 barriers)
+     ===================================================== */
+  .barrier-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 36px;
+  }
+  .barrier {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+  }
+  .ink .barrier, .ink-deep .barrier {
+    background: hsl(38 28% 95% / 0.04);
+    border-color: var(--rule-on-ink);
+  }
+  .barrier .bnum {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 56px;
+    color: var(--terracotta);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .barrier h4 { font-size: 19px; font-weight: 600; margin-bottom: 10px; line-height: 1.25; }
+  .barrier p { font-size: 14px; line-height: 1.5; color: var(--text-mute); }
+  .ink .barrier p, .ink-deep .barrier p { color: var(--text-mute-on-ink); }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: ROI (<span class="zc">ZeCorner</span>)
+     ===================================================== */
+  .roi-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 28px;
+    font-feature-settings: "tnum";
+  }
+  .roi-table th {
+    text-align: left;
+    padding: 16px 24px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-mute-on-ink);
+    border-bottom: 1px solid var(--rule-on-ink);
+    font-weight: 500;
+    background: hsl(38 28% 95% / 0.04);
+  }
+  .roi-table td {
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--rule-on-ink);
+    font-size: 17px;
+    vertical-align: middle;
+  }
+  .roi-table td.label { font-weight: 500; color: var(--text-on-ink); }
+  .roi-table td.num {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    text-align: right;
+    color: var(--text-on-ink);
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .roi-table td.num.em {
+    color: var(--emerald-glow);
+    font-size: 28px;
+  }
+  .roi-table tr.highlight td {
+    background: hsl(158 65% 42% / 0.10);
+    border-bottom-color: hsl(158 65% 42% / 0.25);
+  }
+  .roi-table tr:last-child td { border-bottom: 0; }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: COMPETITIVE MATRIX
+     ===================================================== */
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 32px;
+    background: hsl(38 28% 95% / 0.04);
+    border: 1px solid var(--rule-on-ink);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .matrix th, .matrix td {
+    padding: 16px 22px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule-on-ink);
+    font-size: 15px;
+  }
+  .matrix th {
+    background: hsl(38 28% 95% / 0.06);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-mute-on-ink);
+    font-weight: 500;
+  }
+  .matrix td.check { color: var(--emerald-glow); font-weight: 600; font-size: 14px; }
+  .matrix td.cross { color: hsl(0 50% 65%); }
+  .matrix td.partial { color: hsl(38 70% 60%); font-size: 13px; }
+  .matrix tr:last-child td { border-bottom: 0; }
+  .matrix tr.row-emph td { background: hsl(14 60% 38% / 0.12); color: white; font-weight: 500; }
+  .matrix tr.row-emph td.check { color: var(--emerald-glow); }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: RISK SLIDE
+     ===================================================== */
+  .risk-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .ink .risk-row, .ink-deep .risk-row { border-bottom-color: var(--rule-on-ink); }
+  .risk-row:last-child { border-bottom: 0; }
+  .risk-row .rnum {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 38px;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+  .risk-row .rrisk h4 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+  .risk-row .rrisk p { font-size: 15px; line-height: 1.5; color: var(--text-mute); }
+  .ink .risk-row .rrisk p, .ink-deep .risk-row .rrisk p { color: var(--text-mute-on-ink); }
+  .risk-row .rmit {
+    border-left: 2px solid var(--emerald);
+    padding-left: 22px;
+  }
+  .risk-row .rmit .lab {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--emerald-glow);
+    margin-bottom: 8px;
+  }
+  .risk-row .rmit p { font-size: 15px; line-height: 1.5; }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: ROADMAP TIMELINE
+     ===================================================== */
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+    position: relative;
+  }
+  .rmcol {
+    border-top: 2px solid var(--terracotta);
+    padding-top: 24px;
+    position: relative;
+  }
+  .rmcol::before {
+    content: "";
+    position: absolute;
+    top: -8px; left: 0;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--terracotta);
+  }
+  .rmcol.future { border-top-color: var(--rule); }
+  .ink .rmcol.future, .ink-deep .rmcol.future { border-top-color: var(--rule-on-ink); }
+  .rmcol.future::before { background: var(--rule); }
+  .ink .rmcol.future::before, .ink-deep .rmcol.future::before { background: var(--rule-on-ink); }
+  .rmcol .when {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+  }
+  .rmcol.future .when { color: var(--text-mute); }
+  .ink .rmcol.future .when, .ink-deep .rmcol.future .when { color: var(--text-mute-on-ink); }
+  .rmcol h4 { font-size: 19px; font-weight: 600; line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .rmcol ul li { font-size: 14px; padding: 5px 0; }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: TEAM
+     ===================================================== */
+  .team-card {
+    background: hsl(38 28% 95% / 0.04);
+    border: 1px solid var(--rule-on-ink);
+    border-radius: 16px;
+    padding: 22px 24px;
+  }
+  .team-card.lead {
+    background: var(--terracotta-soft);
+    border: 1px solid hsl(14 60% 38% / 0.3);
+  }
+  .team-card .avatar {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--terracotta), var(--terracotta-glow));
+    color: white;
+    display: grid; place-items: center;
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 24px; font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .team-card.role .avatar {
+    background: hsl(38 28% 95% / 0.06);
+    border: 1px dashed var(--rule-on-ink);
+    color: var(--text-mute-on-ink);
+    font-family: var(--font-mono); font-style: normal;
+    font-size: 17px;
+  }
+  .team-card h4 { font-size: 18px; font-weight: 600; margin-bottom: 3px; }
+  .team-card .role-line {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--terracotta-glow);
+    margin-bottom: 12px;
+  }
+  .team-card.role .role-line { color: var(--text-mute-on-ink); }
+  .team-card p { font-size: 12.5px; line-height: 1.5; color: var(--text-mute-on-ink); }
+  .team-card.lead p { color: hsl(36 28% 88%); }
+
+  /* =====================================================
+     SLIDE-SPECIFIC: FINAL
+     ===================================================== */
+  .final-bg {
+    position: absolute;
+    inset: 0;
+    background: var(--ink-deep);
+    background-image:
+      radial-gradient(circle at 20% 80%, hsl(14 70% 52% / 0.18) 0%, transparent 60%),
+      radial-gradient(circle at 80% 20%, hsl(158 65% 42% / 0.14) 0%, transparent 60%);
+  }
+  .final-content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1300px;
+  }
+
+  /* Diagram primitives */
+  .diagram-flow {
+    display: flex; align-items: center; gap: 16px;
+    margin-top: 28px; flex-wrap: wrap;
+  }
+  .diagram-node {
+    background: hsl(38 28% 95% / 0.05);
+    border: 1px solid var(--rule-on-ink);
+    border-radius: 12px;
+    padding: 16px 22px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-on-ink);
+    text-align: center;
+    min-width: 140px;
+  }
+  .diagram-node.t { border-color: var(--terracotta); color: var(--terracotta-glow); background: hsl(14 70% 52% / 0.08); }
+  .diagram-node.e { border-color: var(--emerald); color: var(--emerald-glow); background: hsl(158 65% 42% / 0.08); }
+  .diagram-arrow { color: var(--text-mute-on-ink); font-size: 18px; }
+
+  /* Map mockup pin (slide 4) */
+  .map-pin-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .map-pin {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: hsl(38 28% 95% / 0.06);
+    border: 1px solid var(--rule-on-ink);
+    font-size: 14px;
+  }
+  .map-pin .pin-dot {
+    width: 18px; height: 18px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 1.5px solid white;
+  }
+  .map-pin.green .pin-dot { background: hsl(142 65% 38%); }
+  .map-pin.yellow .pin-dot { background: hsl(40 90% 48%); }
+  .map-pin.orange .pin-dot { background: hsl(22 85% 50%); }
+  .map-pin.red .pin-dot { background: hsl(0 70% 48%); }
+
+  /* Print stylesheet — backup for backdrop-filter */
+  @media print {
+    .demo-shot .label,
+    .pill {
+      backdrop-filter: none !important;
+    }
+  }
+</style>
+
+<!-- Speaker notes (per slide) -->
+<script type="application/json" id="speaker-notes">
+[
+  "Sayın X Bey, bu sunumun amacı KiralıYorum'u tanıtmak değil — size iki ayrı dünya birinciliğinin parçası olma fırsatı sunmak. 30 dakika sürecek. Sondaki rakamlara dikkat edin: <span class="zc">ZeCorner</span> için somut ROI tablosu var.",
+  "Türkiye'de 7 milyon hane kira ödüyor. Bunların büyük çoğunluğu kiraladıkları evi sadece ilan fotoğraflarına ve emlakçı vaatlerine güvenerek seçiyor. Ayşe örneği gerçek bir hikâye — sayılarla değil insan duygusuyla problemi anlatıyor.",
+  "Burası sunumun kalbi. İki ayrı 'ilk' var: yorumlar (Türkiye'de tek), K-Pass (dünyada ilk). İkisi birbirini besleyen bir sistem. Bu sayfada sadece çerçeveyi koy — detay sonraki iki slaytta.",
+  "Hamle 1 — yorum platformu. Glassdoor analojisi patron için en hızlı kavrayış. e-Devlet KYC, 8 eksen yapısal puanlama, KVKK uyumlu maskeleme. 'Doğrulanmış kiracı yorumu × adres bazlı' kesişimi dünyada yok.",
+  "Hamle 2 — K-Pass. Burayı yavaş anlat. Müşteri uygulamadan randevu alır, esnaf K-Point'ten anahtarı alır, evi tek başına gezer, geri getirir. Çift QR + AI foto-diff + 50K Iyzico provizyon = elektronik delil zinciri. Bu mekanik dünyada hiçbir ülkede yok.",
+  "Ürünü canlı göster: splash, Türkiye haritası, sokak detay pin clustering, 8 eksen yorum formu. Bu bir Figma mockup değil — gerçek ekranlar, çalışan sistem.",
+  "Patron sorar: 'Sahibinden bunu yarın yaparsa beni vurur mu?' Cevap: 4 bariyer. KVKK mimarisi, e-Devlet ortaklığı, <span class="zc">ZeCorner</span> münhasırlığı, 4-katmanlı KYC. Bu dördü tek günde kurulamaz.",
+  "Hukuki çerçeve kısa olsun — patron detay istemiyor, 'mahkemede savunulabilir mi' istiyor. KVKK + 5651 + TBK 49 üçgeninde tasarladık. Ev sahibi adı sistemde yok, sadece A.Y. maskeli.",
+  "Pazar büyüklüğü: TÜİK 2024 verilerine göre 7M hane kira ödüyor, yıllık kira hacmi 750 milyar TL. %1 pazar payı bile devasa. Kiracı + ev sahibi + emlakçı üçlüsünün hepsine değer üretiyoruz.",
+  "Şu an neredeyiz: 8 sayfa canlı, 9 migration, 112 mock mülk, 4 ana ekran çalışıyor. Lansmana 4 ay. Bu PoC değil, başlangıç stoğu hazır bir ürün.",
+  "Riskler. Patron bunu mutlaka soracak — biz önce sorup cevaplıyoruz. e-Devlet API'si, sahte yorum, ev sahibi davası, anahtar kaybı. Her birinin somut yönetim mekanizması var.",
+  "Takım. Kurucu mevcut, anahtar pozisyonlar açık ama ROI'ye bağlı zaman çizelgesi var. Patron 'tek kişi şirketi mi?' diye sorduğunda cevap net: '<span class="zc">ZeCorner</span> ile birlikte ekip kuruluyor.'",
+  "Roadmap — 4 çeyreklik faz planı. Q3 2026 lansman, Q4 K-Pass faz 1, Q1 2027 50 ofis entegrasyonu, Q2-Q3 ulusal genişleme.",
+  "<span class="zc">ZeCorner</span> için ROI. Burası karar slaytı. 30-40 ofis, ofis başına ~150 kira/yıl, <span class="zc">ZeCorner</span>'a aktığında yıl 3'te ek komisyon + veri tekeli + 'yorumlu emlakçı' kategorisinde tek hakim. $500K karşılığında %12 + Türkiye münhasırlığı.",
+  "Kapanış. Tek bir cümle: 'Önce yorumla, sonra kirala.' Türkiye'nin ilk kiracı yorumlu, dünyanın ilk anahtar teslimli emlak platformu. <span class="zc">ZeCorner</span> ile birlikte bu ikiliği kuruyoruz."
+]
+</script>
+
+</head>
+<body>
+
+<deck-stage>
+
+  <!-- ============================================================
+       SLIDE 1 — COVER
+       ============================================================ -->
+  <section class="slide cover" data-screen-label="01 Kapak">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right">
+        <span class="crumb">2026 · <span class="zc">ZeCorner</span> Stratejik Görüşmesi</span>
+      </div>
+    </div>
+
+    <div class="inner">
+      <div style="display: flex; gap: 14px; margin-bottom: 36px;">
+        <span class="pill" style="background: hsl(14 60% 38% / 0.18); color: var(--terracotta-glow); border-color: hsl(14 60% 38% / 0.4);">
+          <span class="dot"></span>Türkiye'de ilk
+        </span>
+        <span class="pill" style="background: hsl(158 65% 42% / 0.16); color: var(--emerald-glow); border-color: hsl(158 65% 42% / 0.4);">
+          <span class="dot"></span>Dünyada ilk
+        </span>
+      </div>
+
+      <h1 class="display-xl" style="max-width: 1400px;">
+        Türkiye'nin ilk <em>kiracı yorumlu</em>,<br>
+        dünyanın ilk <span class="em-emerald">anahtar teslimli</span><br>
+        emlak platformu.
+      </h1>
+
+      <p style="margin-top: 40px; max-width: 760px; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: hsl(36 28% 88%);">
+        Türkiye'de yok · Avrupa'da yok · ABD'de yalnızca self-tour donanımı var
+      </p>
+
+      <div class="meta-grid">
+        <div>Hazırlayan<strong>Koray Duman · Kurucu</strong></div>
+        <div>Görüşme tipi<strong>Stratejik ortaklık</strong></div>
+        <div>İletişim<strong>kiraliyorum.com</strong></div>
+        <div>Tarih<strong>Mayıs 2026</strong></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 2 — PROBLEM (Ayşe + 3 stats with sources)
+       ============================================================ -->
+  <section class="slide" data-screen-label="02 Problem">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>02 · Problem</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="eyebrow">Problem</div>
+      <h2 class="display">
+        Türkiye konut pazarı,<br>
+        <span class="hl">karanlıkta</span> imzalanan<br>
+        en büyük finansal işlem.
+      </h2>
+
+      <div class="grid-2" style="margin-top: 36px; gap: 64px;">
+        <!-- Ayşe — site yorum kartı estetiğinde (kötü deneyim, düşük puan) -->
+        <div style="background: var(--paper-warm); border-radius: 18px; padding: 36px; border: 1px solid var(--rule); box-shadow: 0 24px 48px -16px hsl(20 14% 11% / 0.18);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px;">
+            <span style="font-size: 64px; font-weight: 600; color: hsl(0 70% 45%); letter-spacing: -0.04em; line-height: 1;">1.6</span>
+            <span style="color: hsl(0 70% 45%); font-size: 26px; letter-spacing: 4px;">★⯨☆☆☆</span>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 18px;">
+            Caddebostan Mah. · Bağdat Cad. · 6 ay oturulmuş · 1 yorum
+          </div>
+          <p style="font-family: var(--font-serif); font-style: italic; font-size: 17px; line-height: 1.55; color: var(--ink); padding-left: 16px; border-left: 2px solid hsl(0 70% 45%); margin-bottom: 14px;">
+            "Eylül'de taşındım. İlanda 'asansör çalışıyor, ev güneş alıyor, sessiz' yazıyordu. İmzaladım."
+          </p>
+          <p style="font-family: var(--font-serif); font-style: italic; font-size: 16px; line-height: 1.55; color: var(--text-on-paper); padding-left: 16px; border-left: 2px solid hsl(0 70% 45% / 0.4); margin-bottom: 18px;">
+            "Ekim'de asansör 11 gün bozuk. Kasım'da kombiyi kendi cebimden tamir ettim. Aralık'ta üst kattan müzik durmadı. Mart'ta erken çıktım — depozitodan 18 bin kesildi."
+          </p>
+          <div style="display: flex; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 14px; font-size: 13px;">
+            <span style="color: var(--text-mute);">Kiracı: <strong style="color: var(--text-on-paper);">Ayşe Y. · 32</strong></span>
+            <span style="color: var(--text-mute);">Ev sahibi: <strong style="color: var(--text-on-paper);">M.Ş.</strong></span>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; color: var(--text-mute); text-align: center; margin-bottom: 14px;">
+            ₺22.000 / ay · 2025
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px;">
+            <span class="pill emerald" style="font-size: 10px; padding: 5px 10px;">e-Devlet doğrulu</span>
+            <span class="pill" style="font-size: 10px; padding: 5px 10px; background: hsl(0 70% 48% / 0.10); color: hsl(0 70% 38%); border-color: hsl(0 70% 48% / 0.3);">ev sahibi tepkisiz</span>
+            <span class="pill" style="font-size: 10px; padding: 5px 10px; background: hsl(0 70% 48% / 0.10); color: hsl(0 70% 38%); border-color: hsl(0 70% 48% / 0.3);">erken çıkış</span>
+          </div>
+          <div style="background: hsl(14 60% 38% / 0.08); border-radius: 10px; padding: 14px 18px; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 4px;">Toplam zarar</div>
+            <div style="font-size: 28px; font-weight: 700; color: var(--terracotta); letter-spacing: -0.02em;">₺42.000</div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stack gap-24">
+          <p class="body" style="font-size: 22px; line-height: 1.5; color: var(--text-on-paper); max-width: 26em;">
+            Bir araba alırken bin yorum okursunuz. Aylar boyu yaşayacağınız evi ise
+            <strong>sadece ilan fotoğraflarına</strong> güvenerek 12 aylık kontratla bağlarsınız.
+          </p>
+
+          <div class="stat-strip">
+            <div class="cell">
+              <div class="num">7M</div>
+              <div class="label-mono">Kiracı hanesi</div>
+              <h4>Türkiye'de kiracı olarak yaşayan hane sayısı.</h4>
+              <div class="src">TÜİK · Hanehalkı 2024</div>
+            </div>
+            <div class="cell">
+              <div class="num">₺750B</div>
+              <div class="label-mono">Yıllık kira hacmi</div>
+              <h4>Resmi sözleşmelerin toplam ekonomik büyüklüğü.</h4>
+              <div class="src">GYODER · Kira Endeksi 2024</div>
+            </div>
+            <div class="cell">
+              <div class="num">₺48K</div>
+              <div class="label-mono">Bilgi asimetri maliyeti</div>
+              <h4>Yanlış ev seçimi → çıkış cezası + nakliye + ek gider.</h4>
+              <div class="src">Sektör · iç hesaplama</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>02 / 17</span>
+      <span>Kaynaklar dipnotlarda</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 3 — TWO MOVES (intro)
+       ============================================================ -->
+  <section class="slide ink" data-screen-label="03 İki Hamle">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>03 · Çözüm</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 40px; flex: 1; justify-content: center;">
+      <div class="eyebrow">Çözüm</div>
+      <h2 class="display">
+        Tek bir ürün değil —<br>
+        <em style="font-family: var(--font-serif); color: var(--terracotta-glow); font-weight: 400;">iki ayrı</em>
+        kategori yaratan ürün.
+      </h2>
+      <p class="lede" style="margin-top: 16px; max-width: 36em;">
+        <strong>Türkiye'de ilk · alanında öncü</strong> — biri yorum tarafında, diğeri ev gezme tarafında.
+        Birini iyi yapmak zor, ikisini birden yapmak <em style="font-family: var(--font-serif); color: var(--terracotta-glow);">benzersiz</em>.
+      </p>
+
+      <div class="grid-2" style="margin-top: 32px; gap: 48px;">
+        <div class="card" style="border: 1px solid hsl(14 60% 38% / 0.4); background: hsl(14 60% 38% / 0.08); padding: 48px;">
+          <div class="move-tag" style="color: var(--terracotta-glow);">Hamle 01 — yorumlar</div>
+          <div class="move-num">01</div>
+          <h3 class="h2" style="color: white; margin-top: 24px; max-width: 14em;">
+            Türkiye'nin <span class="hl">ilk</span> yapısal kiracı yorum platformu.
+          </h3>
+          <p class="source" style="margin-top: 14px; color: hsl(36 28% 78%);">İlanda yazmayanı, kiracısından öğren.</p>
+          <p class="body" style="font-size: 19px; margin-top: 24px; line-height: 1.5;">
+            Glassdoor'un işyerlerine yaptığını biz konutlara yapıyoruz —
+            <strong style="color: white;">e-Devlet doğrulamalı, KVKK uyumlu, adres bazlı</strong>.
+            Türkiye'de tek; dünyada bir elin parmakları kadar nadir.
+          </p>
+        </div>
+
+        <div class="card" style="border: 1px solid hsl(158 65% 42% / 0.4); background: hsl(158 65% 42% / 0.08); padding: 48px;">
+          <div class="move-tag" style="color: var(--emerald-glow);">Hamle 02 — k-pass</div>
+          <div class="move-num em">02</div>
+          <h3 class="h2" style="color: white; margin-top: 24px; max-width: 14em;">
+            <span class="hl-em">Alanında öncü</span> — anahtar teslim & ev gezme protokolü.
+          </h3>
+          <p class="source" style="margin-top: 14px; color: hsl(36 28% 78%);">Türkiye'de yok · Avrupa'da yok · Türk gerçeğine uyarlanmış mimari.</p>
+          <p class="body" style="font-size: 19px; margin-top: 24px; line-height: 1.5;">
+            Emlakçı yok, telefon trafiği yok. Müşteri uygulamadan randevu alır, esnaf K-Point'ten anahtarı alır,
+            <strong style="color: white;">tek başına</strong> evi gezer, geri getirir.
+            <strong style="color: white;">AI foto-diff + Iyzico provizyon</strong> = sıfır risk.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>03 / 17</span>
+      <span>Detaylar slayt 04 ve 05'te</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 4 — MOVE 1: REVIEW PLATFORM
+       ============================================================ -->
+  <section class="slide" data-screen-label="04 Hamle 1 - Yorum Platformu">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>04 · Hamle 01</span></div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 32px; gap: 64px; flex: 1; align-items: start;">
+      <div class="stack">
+        <div class="eyebrow"><span style="color: var(--terracotta);">Hamle 01</span></div>
+        <span class="pill solid" style="align-self: flex-start; margin-bottom: 24px;">
+          <span class="dot"></span>Türkiye'de İlk
+        </span>
+        <h2 class="display-sm">
+          "<em style="font-family: var(--font-serif); color: var(--terracotta);">İlanda yazmayanı,</em><br>
+          <em style="font-family: var(--font-serif); color: var(--terracotta);">kiracısından öğren.</em>"
+        </h2>
+        <p class="lede" style="margin-top: 28px;">
+          Türkiye'nin ilk <strong>yapısal kiracı yorum platformu</strong> — adres bazlı, doğrulanmış, korunmuş.
+          Otelinizdeki 1 günlük kahvaltıyı puanlayabiliyorsunuz da,
+          3 yıl yaşadığınız evi neden puanlayamıyorsunuz?
+          <strong>Glassdoor mantığı, Türkiye konutuna uyarlandı.</strong>
+        </p>
+
+        <ul class="clean" style="margin-top: 36px;">
+          <li><strong>e-Devlet ile birincil doğrulama</strong> · 16 haneli kira sözleşmesi barkodu, saniyede onay.</li>
+          <li><strong>8 eksen yapısal puanlama</strong> · genel, ev sahibi, bakım, depozito, komşu, ısınma, ses, fiyat — 1-5 yıldız.</li>
+          <li><strong>KVKK uyumlu maskeleme</strong> · ev sahibi adı sistemde yok; sadece "M.K." baş harfler.</li>
+          <li><strong>Akıllı moderasyon zinciri</strong> · n8n + Claude AI, hakaret/iftira otomatik filtre.</li>
+          <li><strong>Çevre Refah Puanı</strong> · adres bazında TÜİK suç + Google Places ulaşım + Çevre Bakanlığı AQI = tek skor.</li>
+        </ul>
+      </div>
+
+      <div class="stack gap-24">
+        <!-- Sample mock popup — V1 dolgunluğu: kira aralığı + CTA + altın yıldızlar -->
+        <div style="background: var(--paper-warm); border-radius: 18px; padding: 36px; border: 1px solid var(--rule); box-shadow: 0 24px 48px -16px hsl(20 14% 11% / 0.18); transform: scale(1.03); transform-origin: center;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px;">
+            <span style="font-size: 64px; font-weight: 600; color: hsl(40 80% 38%); letter-spacing: -0.04em; line-height: 1;">4.5</span>
+            <span style="color: hsl(40 80% 38%); font-size: 26px; letter-spacing: 4px;">★★★★⯨</span>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 18px;">
+            Ortaköy Mah. · Pırıl Sk. · No: 14 D: 7 · 4 yorum
+          </div>
+          <p style="font-family: var(--font-serif); font-style: italic; font-size: 19px; line-height: 1.5; color: var(--ink); padding-left: 16px; border-left: 2px solid var(--terracotta); margin-bottom: 20px;">
+            "Bina yeni, asansör çalışıyor, otopark var. Ev sahibi tamiratları
+            7 gün içinde hallediyor. Tek eksi: yaz aylarında klima şart."
+          </p>
+          <div style="display: flex; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 14px; font-size: 13px;">
+            <span style="color: var(--text-mute);">Kiracı: <strong style="color: var(--text-on-paper);">Selin Y.</strong></span>
+            <span style="color: var(--text-mute);">Ev sahibi: <strong style="color: var(--text-on-paper);">M.K.</strong></span>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; color: var(--text-mute); text-align: center; margin-bottom: 14px;">
+            ₺22.000 — ₺28.000 / ay
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+            <span class="pill emerald" style="font-size: 10px; padding: 5px 10px;">e-Devlet doğrulu</span>
+            <span class="pill" style="font-size: 10px; padding: 5px 10px;">36 ay oturmuş</span>
+          </div>
+          <a style="display: block; text-align: center; padding: 12px 20px; background: var(--terracotta); color: white; border-radius: 10px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; text-decoration: none;">Daireyi gör →</a>
+        </div>
+
+        <!-- Pin legend -->
+        <div class="card" style="padding: 24px;">
+          <div class="label" style="margin-bottom: 14px;">Harita renk kodu</div>
+          <div class="map-pin-row" style="margin-top: 0; gap: 12px;">
+            <div class="map-pin green" style="background: hsl(142 65% 38% / 0.08); border-color: hsl(142 65% 38% / 0.3);">
+              <span class="pin-dot"></span><span><strong>4.5+</strong> · tavsiye</span>
+            </div>
+            <div class="map-pin yellow" style="background: hsl(40 90% 48% / 0.08); border-color: hsl(40 90% 48% / 0.3);">
+              <span class="pin-dot"></span><span><strong>3.0–4.4</strong> · karışık</span>
+            </div>
+            <div class="map-pin red" style="background: hsl(0 70% 48% / 0.08); border-color: hsl(0 70% 48% / 0.3);">
+              <span class="pin-dot"></span><span><strong>&lt;3.0</strong> · dikkat</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Çevre Refah Puanı kartı -->
+        <div style="background: linear-gradient(135deg, hsl(158 65% 42% / 0.08), hsl(158 65% 42% / 0.02)); border: 1px solid hsl(158 65% 42% / 0.3); border-radius: 18px; padding: 24px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <div class="label" style="color: var(--emerald); margin-bottom: 6px;">Çevre Refah Puanı</div>
+              <div style="font-family: var(--font-serif); font-style: italic; font-size: 15px; color: var(--text-on-paper);">
+                "İçinde yaşadığın evi yorumla. Çevreyi puanla."
+              </div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <div style="font-size: 56px; font-weight: 700; color: var(--emerald); letter-spacing: -0.04em; line-height: 1;">76<span style="font-size: 22px; color: var(--text-mute); font-weight: 400;">/100</span></div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding-top: 14px; border-top: 1px solid hsl(158 65% 42% / 0.2);">
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 4px;">TÜİK</div>
+              <div style="font-size: 12px; color: var(--text-on-paper); font-weight: 500;">Suç istatistiği</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 4px;">Google Places</div>
+              <div style="font-size: 12px; color: var(--text-on-paper); font-weight: 500;">Ulaşım yakınlığı</div>
+            </div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 4px;">Çevre Bak.</div>
+              <div style="font-size: 12px; color: var(--text-on-paper); font-weight: 500;">Hava kalitesi (AQI)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>04 / 17</span>
+      <span>Hamle 01 · Yorum platformu</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 5 — MOVE 2: K-PASS (6-step flow)
+       ============================================================ -->
+  <section class="slide ink-deep" data-screen-label="05 Hamle 2 - K-Pass">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>05 · Hamle 02</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 36px; flex: 1;">
+      <div class="row between" style="align-items: flex-end; margin-bottom: 32px;">
+        <div>
+          <div class="eyebrow" style="color: var(--emerald-glow);">Hamle 02 · K-Pass</div>
+          <span class="pill emerald solid" style="margin-bottom: 20px;">
+            <span class="dot"></span>Dünyada İlk
+          </span>
+          <h2 class="display-sm" style="color: white;">
+            Anahtar teslimi —
+            <em style="font-family: var(--font-serif); color: var(--emerald-glow);">emlakçısız</em>,
+            kanıtlı, sigortalı.
+          </h2>
+        </div>
+        <div style="max-width: 480px; text-align: right;">
+          <p class="body" style="font-size: 17px; line-height: 1.5;">
+            Müşteri evi <strong style="color: white;">tek başına</strong> gezer.
+            Çift QR + AI foto-diff + Iyzico provizyon =
+            <strong style="color: var(--emerald-glow);">elektronik delil zinciri</strong>.
+          </p>
+          <p class="body" style="font-size: 13px; line-height: 1.5; margin-top: 14px; color: hsl(36 28% 78%);">
+            <strong style="color: var(--emerald-glow);">Avrupa'da benzeri yok.</strong>
+            ABD'de Tour24 / Rently sadece self-tour donanımı satar — esnaf K-Point + AI iade doğrulama + KYC'li sigorta provizyonu hiçbir pazarda tek bir üründe birleşmedi.
+          </p>
+        </div>
+      </div>
+
+      <!-- 6-step flow -->
+      <div class="kpass-flow">
+        <div class="kpass-step">
+          <div class="stepnum">Adım 01</div>
+          <div class="stepicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <h4>Randevu</h4>
+          <p>Kiracı app'te mülkü bulur · 1 saatlik blok seçer (max 4 saat).</p>
+          <span class="arrow">→</span>
+        </div>
+        <div class="kpass-step">
+          <div class="stepnum">Adım 02</div>
+          <div class="stepicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h4>K-Point sabit</h4>
+          <p>Ev sahibinin önceden seçtiği üye esnaf veya akıllı kabin · kiracı seçemez.</p>
+          <span class="arrow">→</span>
+        </div>
+        <div class="kpass-step">
+          <div class="stepnum">Adım 03</div>
+          <div class="stepicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          </div>
+          <h4>₺50K provizyon</h4>
+          <p>Iyzico 3D-Secure · kart blokesi (çekim yok) · randevu sonu otomatik iade.</p>
+          <span class="arrow">→</span>
+        </div>
+        <div class="kpass-step">
+          <div class="stepnum">Adım 04</div>
+          <div class="stepicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z"/></svg>
+          </div>
+          <h4>Çift QR teslim</h4>
+          <p>K-Point'te HMAC token eşleşmesi · anahtar kiracıya teslim edilir.</p>
+          <span class="arrow">→</span>
+        </div>
+        <div class="kpass-step">
+          <div class="stepnum">Adım 05</div>
+          <div class="stepicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+          </div>
+          <h4>Tek başına gezme</h4>
+          <p>Emlakçı yok · telefon trafiği yok · kiracı kendi başına evi inceler.</p>
+          <span class="arrow">→</span>
+        </div>
+        <div class="kpass-step">
+          <div class="stepnum">Adım 06</div>
+          <div class="stepicon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h4>İade + AI doğrulama</h4>
+          <p>Aynı QR · AI foto-diff (orijinal ↔ iade) · uyumluysa bloke saniyede serbest.</p>
+        </div>
+      </div>
+
+      <!-- Bottom: trust layer -->
+      <div class="grid-3" style="margin-top: 36px; gap: 20px;">
+        <div class="card" style="background: hsl(38 28% 95% / 0.04); border: 1px solid var(--rule-on-ink); padding: 24px;">
+          <div class="label" style="color: var(--emerald-glow);">Fiziksel kanal</div>
+          <h4 class="h4" style="color: white; margin-bottom: 8px;">Üye Esnaf · ₺7,50/işlem</h4>
+          <p class="body" style="font-size: 14px;">Kahveci, lostra, kuruyemiş — Faz 1 ana model. K-Pass Akıllı Kabin (PUDO benzeri) Faz 2'de paralel.</p>
+        </div>
+        <div class="card" style="background: hsl(38 28% 95% / 0.04); border: 1px solid var(--rule-on-ink); padding: 24px;">
+          <div class="label" style="color: var(--emerald-glow);">Sigorta</div>
+          <h4 class="h4" style="color: white; margin-bottom: 8px;">Faz 1: ₺50K provizyon · Faz 2: Allianz/AXA grup</h4>
+          <p class="body" style="font-size: 14px;">Hasar/kayıp hakem heyeti onayıyla capture; 6-12 ay içinde direct claim sigorta entegrasyonu.</p>
+        </div>
+        <div class="card" style="background: hsl(38 28% 95% / 0.04); border: 1px solid var(--rule-on-ink); padding: 24px;">
+          <div class="label" style="color: var(--emerald-glow);">İnkâr edilemezlik</div>
+          <h4 class="h4" style="color: white; margin-bottom: 8px;">Çift QR + AI foto-diff + paymentId</h4>
+          <p class="body" style="font-size: 14px;">PostgreSQL'de senet gibi yazılı elektronik delil zinciri — anahtar yakın çekim seri no AI referans imzası.</p>
+        </div>
+      </div>
+
+      <div class="card emerald" style="margin-top: 22px; padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 32px;">
+        <div style="max-width: 60%;">
+          <div class="label" style="color: hsl(0 0% 100% / 0.75); margin-bottom: 6px;"><span class="zc">ZeCorner</span> için K-Pass</div>
+          <p style="font-family: var(--font-serif); font-style: italic; font-size: 22px; color: white; line-height: 1.3;">
+            Emlakçının rakibi değil, <strong style="font-style: normal;">asistanı</strong>. 2 saat boyunca tek müşteri gezdirmek yerine — aynı sürede <strong style="font-style: normal;">10 müşteri paralel</strong> daire görür.
+          </p>
+        </div>
+        <div style="text-align: right;">
+          <div class="num-mid" style="color: white;">5×</div>
+          <div class="label" style="color: hsl(0 0% 100% / 0.7); margin-top: 4px;">Ofis verimliliği · komisyon <span class="zc">ZeCorner</span>'da kalır</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>05 / 17</span>
+      <span>Hamle 02 · K-Pass</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 6 — DEMO MOSAIC
+       ============================================================ -->
+  <section class="slide warm" data-screen-label="06 Ürün Akışı">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>06 · Ürün Akışı</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="row between center">
+        <div>
+          <div class="eyebrow">Ürün Akışı</div>
+          <h2 class="display">Açılıştan ilk yoruma — <span class="hl">90 saniye.</span></h2>
+        </div>
+        <p class="body" style="max-width: 420px; font-size: 17px; text-align: right;">
+          Mockup değil — gerçek çalışan ekranlar. Splash, ülke geneli haritalama, sokak detayı pin clustering, 8 eksen yorum formu.
+        </p>
+      </div>
+
+      <div class="demo-mosaic" style="grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 1fr; height: 580px;">
+        <div class="demo-shot">
+          <img src="screens/sokak-detay.jpg" alt="Sokak detay haritası — pin clustering, POI rating, bina seçim sheet">
+          <span class="label">02 · Sokak detay + bina sheet</span>
+        </div>
+        <div class="demo-shot">
+          <img src="screens/secim-tr.jpg" alt="Türkiye geneli harita">
+          <span class="label">01 · TR geneli — eski/yeni</span>
+        </div>
+        <div class="demo-shot form-shot" style="padding: 28px 26px;">
+          <div class="form-head">03 / 03</div>
+          <div class="form-title" style="font-size: 18px; margin-bottom: 16px;">Puan ver, kelime kullanma.</div>
+          <div class="row-line" style="padding: 10px 0;">
+            <span class="lbl-form">Genel</span>
+            <span class="stars-row">★★★★<span class="off">★</span></span>
+          </div>
+          <div class="row-line" style="padding: 10px 0;">
+            <span class="lbl-form">Ev sahibi</span>
+            <span class="stars-row">★★★<span class="off">★★</span></span>
+          </div>
+          <div class="row-line" style="padding: 10px 0;">
+            <span class="lbl-form">Bakım</span>
+            <span class="stars-row">★★★★★</span>
+          </div>
+          <div class="row-line" style="padding: 10px 0;">
+            <span class="lbl-form">Komşu</span>
+            <span class="stars-row">★★<span class="off">★★★</span></span>
+          </div>
+          <div class="row-line" style="padding: 10px 0;">
+            <span class="lbl-form">+4 eksen</span>
+            <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-mute); letter-spacing: 0.18em;">DEPOZITO · ISINMA · SES · FIYAT</span>
+          </div>
+          <span class="label" style="background: hsl(20 14% 9% / 0.78); color: white;">03 · 8 eksen yapısal puanlama</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>06 / 17</span>
+      <span>Demo akışı</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 7 — COMPETITIVE LANDSCAPE (yerel + global rakip matrisi)
+       ============================================================ -->
+  <section class="slide" data-screen-label="07 Rakip Matrisi">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>07 · Rakip haritası</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 44px; flex: 1;">
+      <div class="eyebrow">Yerel + Global rakip karşılaştırması</div>
+      <h2 class="display-sm">
+        Türkiye'de yok. Dünyada da<br>
+        <span class="hl">tam bizim gibisi</span> yok.
+      </h2>
+
+      <p class="lede" style="margin-top: 18px; max-width: 880px;">
+        Emlak ilan platformları yorum yapmıyor. Yorum platformları kiracıyı doğrulamıyor.
+        Self-tour donanımları sadece Amerika'da, sadece smart-lock ile.
+        <strong>Dördünü birleştirip Türkiye'ye uyarlayan tek platform: KiralıYorum.</strong>
+      </p>
+
+      <!-- Rakip karşılaştırma matrisi -->
+      <div style="margin-top: 36px; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; background: white;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+          <thead>
+            <tr style="background: hsl(20 14% 95%); border-bottom: 1px solid var(--rule);">
+              <th style="text-align: left; padding: 14px 18px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); font-weight: 500;">Platform</th>
+              <th style="text-align: left; padding: 14px 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mute); font-weight: 500;">Bölge</th>
+              <th style="text-align: center; padding: 14px 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); font-weight: 500;">Yapısal Yorum</th>
+              <th style="text-align: center; padding: 14px 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); font-weight: 500;">K-Pass / Self-tour</th>
+              <th style="text-align: center; padding: 14px 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); font-weight: 500;">Çevre Refah</th>
+              <th style="text-align: center; padding: 14px 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); font-weight: 500;">e-Devlet KYC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Sahibinden -->
+            <tr style="border-bottom: 1px solid var(--rule);">
+              <td style="padding: 12px 18px;">
+                <span style="font-family: 'Geist', sans-serif; font-weight: 700; font-size: 16px; color: hsl(38 100% 50%); letter-spacing: -0.02em;">sahibinden<span style="color: hsl(38 100% 40%); font-weight: 400;">.com</span></span>
+              </td>
+              <td style="padding: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); letter-spacing: 0.1em;">TR</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+            </tr>
+            <!-- Hepsiemlak -->
+            <tr style="border-bottom: 1px solid var(--rule);">
+              <td style="padding: 12px 18px;">
+                <span style="font-family: 'Geist', sans-serif; font-weight: 700; font-size: 16px; color: hsl(355 80% 50%); letter-spacing: -0.02em;">Hepsi<span style="color: hsl(20 14% 11%);">emlak</span></span>
+              </td>
+              <td style="padding: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); letter-spacing: 0.1em;">TR</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+            </tr>
+            <!-- Zillow -->
+            <tr style="border-bottom: 1px solid var(--rule);">
+              <td style="padding: 12px 18px;">
+                <span style="font-family: 'Geist', sans-serif; font-weight: 700; font-size: 16px; color: hsl(214 90% 38%); letter-spacing: -0.03em;">Zillow</span>
+              </td>
+              <td style="padding: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); letter-spacing: 0.1em;">US</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(40 80% 45%); font-size: 13px; font-weight: 600;" title="Walk Score var ama mahalle bazında, refah skoru değil">~ Walk Score</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+            </tr>
+            <!-- Glassdoor -->
+            <tr style="border-bottom: 1px solid var(--rule);">
+              <td style="padding: 12px 18px;">
+                <span style="font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 16px; color: hsl(150 60% 32%); letter-spacing: -0.01em;">Glassdoor</span>
+              </td>
+              <td style="padding: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); letter-spacing: 0.1em;">US / Global</td>
+              <td style="text-align: center; padding: 12px; color: hsl(40 80% 45%); font-size: 13px; font-weight: 600;" title="İşyeri yorumlarında yapısal puanlama var, ama konut değil">~ İşyeri</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+            </tr>
+            <!-- Tour24 -->
+            <tr style="border-bottom: 1px solid var(--rule);">
+              <td style="padding: 12px 18px;">
+                <span style="font-family: 'Geist', sans-serif; font-weight: 700; font-size: 16px; color: hsl(255 70% 45%); letter-spacing: -0.03em;">Tour<span style="color: hsl(20 14% 11%);">24</span></span>
+              </td>
+              <td style="padding: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); letter-spacing: 0.1em;">US</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(40 80% 45%); font-size: 13px; font-weight: 600;" title="Smart-lock self-tour var, ama Türkiye'de altyapı yok">~ Smart-lock</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+            </tr>
+            <!-- Rently -->
+            <tr style="border-bottom: 1px solid var(--rule);">
+              <td style="padding: 12px 18px;">
+                <span style="font-family: 'Geist', sans-serif; font-weight: 700; font-size: 16px; color: hsl(195 75% 42%); letter-spacing: -0.02em;">Rently</span>
+              </td>
+              <td style="padding: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); letter-spacing: 0.1em;">US</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(40 80% 45%); font-size: 13px; font-weight: 600;" title="Smart-lock self-tour, esnaf K-Point yok">~ Smart-lock</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+            </tr>
+            <!-- Tapkey -->
+            <tr style="border-bottom: 1px solid var(--rule);">
+              <td style="padding: 12px 18px;">
+                <span style="font-family: 'Geist', sans-serif; font-weight: 700; font-size: 16px; color: hsl(20 14% 15%); letter-spacing: -0.03em;">tap<span style="color: hsl(14 60% 45%);">key</span></span>
+              </td>
+              <td style="padding: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-mute); letter-spacing: 0.1em;">EU (AT)</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(40 80% 45%); font-size: 13px; font-weight: 600;" title="Tatil kiralaması smart-lock, uzun dönem konut yok">~ Tatil kir.</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+              <td style="text-align: center; padding: 12px; color: hsl(0 60% 45%); font-size: 16px;">✕</td>
+            </tr>
+            <!-- KiralıYorum (vurgulu satır) -->
+            <tr style="background: linear-gradient(90deg, hsl(14 60% 38% / 0.06), hsl(158 65% 42% / 0.06)); border-top: 2px solid var(--terracotta);">
+              <td style="padding: 16px 18px;">
+                <span style="font-family: 'Geist', sans-serif; font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -0.02em;">Kiralı<span style="position: relative; padding-left: 8px;"><span style="position: absolute; left: 3px; top: 8%; bottom: 8%; width: 1px; background: hsl(20 14% 50%);"></span><span style="color: var(--terracotta);">Yorum</span></span></span>
+              </td>
+              <td style="padding: 16px 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-on-paper); letter-spacing: 0.1em; font-weight: 600;">TR</td>
+              <td style="text-align: center; padding: 16px 12px; color: var(--emerald); font-size: 18px; font-weight: 700;">✓</td>
+              <td style="text-align: center; padding: 16px 12px; color: var(--emerald); font-size: 18px; font-weight: 700;">✓</td>
+              <td style="text-align: center; padding: 16px 12px; color: var(--emerald); font-size: 18px; font-weight: 700;">✓</td>
+              <td style="text-align: center; padding: 16px 12px; color: var(--emerald); font-size: 18px; font-weight: 700;">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top: 22px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute);">
+        ✕ yok &nbsp;·&nbsp; ~ kısmi/farklı bağlam &nbsp;·&nbsp; ✓ tam destek
+      </p>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>07 / 17</span>
+      <span>Rakip karşılaştırma · 4 eksen</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 8 — WHY SAHIBINDEN CAN'T COPY (4 barriers) — eski Slayt 7
+       ============================================================ -->
+  <section class="slide ink" data-screen-label="08 Neden Kopyalanamaz">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>08 · Savunma</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="eyebrow">Neden Sahibinden bizi kopyalayamaz</div>
+      <h2 class="display-sm">
+        Yarın açıklasalar <span class="hl">12 ay</span> geriden gelirler —<br>
+        tutarlı kopya için <span class="hl-em">üç yıl</span> ve <span class="hl-em">tüm <span class="zc">ZeCorner</span> ağı</span> gerek.
+      </h2>
+
+      <div class="barrier-grid">
+        <div class="barrier">
+          <div class="bnum">01</div>
+          <h4>KVKK mimarisi</h4>
+          <p>Ev sahibi adı sistemde yok. Maskeleme client-side yapılır, server'a "M.K." ulaşır. RLS aktif, 30 gün TTL, 5 yıl sonra anonimleştirme. <strong>Mevcut platformların DB'si bu mimariyle uyumsuz</strong> — yeniden inşa gerekir.</p>
+        </div>
+        <div class="barrier">
+          <div class="bnum">02</div>
+          <h4>e-Devlet entegrasyonu</h4>
+          <p>16 haneli kira sözleşmesi barkodu ile saniyede doğrulama. <strong>Cumhurbaşkanlığı Dijital Dönüşüm Ofisi başvurusu 6-9 ay sürer</strong> — biz <span class="zc">ZeCorner</span> ile birlikte erken başvuracağız. Sahibinden için ek 9 ay.</p>
+        </div>
+        <div class="barrier">
+          <div class="bnum">03</div>
+          <h4>4 katmanlı KYC</h4>
+          <p><strong>SMS + canlılık (liveness) + e-Devlet + kart provizyonu</strong>. Bu dördünü tek günde kuramazsınız — her biri ayrı entegrasyon, ayrı vendor, ayrı KVKK denetimi. Toplam: ~6 ay.</p>
+        </div>
+        <div class="barrier">
+          <div class="bnum">04</div>
+          <h4><span class="zc">ZeCorner</span> münhasırlığı</h4>
+          <p>Ortaklığımız sonrası <span class="zc">ZeCorner</span> ağı bizim seed pazarımız. <strong>30-40 ofis × ~500 portföy = ~25 bin mülk başlangıç stoğu</strong>. Sahibinden bu seed'i 12 ayda kuramaz; biz 1 günde kuruyoruz.</p>
+        </div>
+      </div>
+
+      <div class="card emerald" style="margin-top: 28px; padding: 22px 32px;">
+        <div class="row between center">
+          <p style="font-family: var(--font-serif); font-style: italic; font-size: 24px; color: white; max-width: 65%;">
+            "İlk 12 ay korumamız 4 katmanın aritmetiği —
+            soğuk başlangıçtan moat'a hızlı geçiş."
+          </p>
+          <div style="text-align: right;">
+            <div class="num-mid" style="color: white;">~12 ay</div>
+            <div class="label" style="color: hsl(0 0% 100% / 0.7); margin-top: 6px;">Yurtiçi kopyalama gecikmesi</div>
+          </div>
+        </div>
+        <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid hsl(0 0% 100% / 0.2); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: hsl(0 0% 100% / 0.78);">
+          Yurtdışı: Avrupa'da yok · ABD self-tour donanımı sadece (Tour24, Rently)
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>08 / 17</span>
+      <span>Savunma katmanları</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 8 — LEGAL FRAMEWORK (kısa)
+       ============================================================ -->
+  <section class="slide" data-screen-label="09 Risksiz Platform">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>09 · Risksiz Platform</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="eyebrow">Risksiz Platform</div>
+      <h2 class="display">
+        <span class="hl">Risksiz</span> bir platform —<br>
+        her teknik karar bir yasal soruyu cevaplıyor.
+      </h2>
+
+      <div class="grid-3" style="margin-top: 36px;">
+        <div class="card">
+          <span class="pill solid"><span class="dot"></span>KVKK</span>
+          <h4 class="h3" style="margin-top: 18px; margin-bottom: 12px;">Ev sahibi adı sistemde yok</h4>
+          <p class="body" style="font-size: 15px;">
+            Form alanına yazılan isim anında client-side maskelenir, server'a yalnızca "A.Y." ulaşır.
+            Tüm tablolarda RLS aktif. Doğrulama belgeleri 30 gün TTL.
+          </p>
+          <ul class="tight">
+            <li>e-Devlet barkodu SHA-256 hash, plain saklanmaz</li>
+            <li>5 yıl sonra user_id NULL → tam anonim</li>
+            <li>Veri minimumun ötesinde</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill solid"><span class="dot"></span>5651</span>
+          <h4 class="h3" style="margin-top: 18px; margin-bottom: 12px;">Hava boşluğu moderasyon</h4>
+          <p class="body" style="font-size: 15px;">
+            Tek bir yorum bile moderasyondan geçmeden public olamaz. Webhook → n8n → Claude AI taraması →
+            şüpheli içerikte manuel onay düğmesi.
+          </p>
+          <ul class="tight">
+            <li>500 karakter sınırı · tirad/manifesto azaltır</li>
+            <li>Yapısal puan → hakaret yerine veri</li>
+            <li>İçerik kaldırma yasal süre içinde</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill"><span class="dot"></span>TBK 49</span>
+          <h4 class="h3" style="margin-top: 18px; margin-bottom: 12px;">Doğru, kamuya açık, ölçülü</h4>
+          <p class="body" style="font-size: 15px;">
+            Yorum üç kriteri sağlarsa hukuki olarak korunur:
+            gerçeklik + kamu yararı + ölçülülük. Yer sağlayıcı sıfatıyla risk <span class="zc">ZeCorner</span>'a sıçramaz.
+          </p>
+          <ul class="tight">
+            <li>Yapısal 8 eksen üçünü de otomatik karşılar</li>
+            <li>"5 yıldız" tartışma değil, ölçüm</li>
+            <li>Hukuk danışmanı görüşü Q3 2026'ya hazır</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="margin-top: 40px; font-family: var(--font-mono); font-size: 11px; line-height: 1.7; color: var(--text-mute); max-width: 1200px; letter-spacing: 0.04em;">
+        <strong style="color: var(--text-on-paper); font-family: var(--font-sans); letter-spacing: 0;">5651:</strong>
+        2007'de yürürlüğe giren İnternet Yayınlarının Düzenlenmesi Kanunu — yer sağlayıcının içerik sorumluluğunu tanımlar.
+        &nbsp;·&nbsp;
+        <strong style="color: var(--text-on-paper); font-family: var(--font-sans); letter-spacing: 0;">TBK 49:</strong>
+        Türk Borçlar Kanunu — haksız fiil sorumluluğu; hakaret/iftira tazminat davalarının yasal temeli.
+      </p>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>09 / 17</span>
+      <span>Risksiz platform</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 9 — MARKET SIZE
+       ============================================================ -->
+  <section class="slide ink" data-screen-label="10 Pazar">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>10 · Pazar</span></div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 32px; gap: 80px; flex: 1; align-items: center;">
+      <div class="stack">
+        <div class="eyebrow">Pazar Büyüklüğü</div>
+        <h2 class="display-sm" style="color: white;">
+          Türkiye'nin 2. en büyük<br>
+          tüketici sektörü —<br>
+          <em style="font-family: var(--font-serif); color: var(--terracotta-glow);">tek dijital platformsuz.</em>
+        </h2>
+        <p class="lede" style="margin-top: 28px;">
+          Kiralık konut, otomotiv ve enerjiden sonra Türkiye'nin en büyük yıllık tüketici harcaması.
+          Kiracı, ev sahibi, emlakçı üçlüsünün hepsine değer üreten <strong>tek platform yok</strong>.
+        </p>
+
+        <div style="margin-top: 36px;">
+          <div class="num-hero">7M<sub>hane</sub></div>
+          <p class="body" style="font-size: 16px; margin-top: 12px;">
+            Türkiye'de kiracı olarak yaşayan hane · TÜİK 2024
+          </p>
+        </div>
+      </div>
+
+      <div class="stack gap-16">
+        <div class="card" style="background: hsl(14 60% 38% / 0.10); border: 1px solid hsl(14 60% 38% / 0.25); padding: 22px 28px;">
+          <span class="label" style="color: var(--terracotta-glow);">TAM · Toplam Adreslenebilir</span>
+          <div class="num-big" style="color: white; font-size: 60px; line-height: 1.1;">₺750B</div>
+          <p class="body" style="font-size: 13px; margin-top: 6px;">Türkiye yıllık kira hacmi · GYODER 2024</p>
+        </div>
+        <div class="card" style="background: hsl(38 28% 95% / 0.04); border: 1px solid var(--rule-on-ink); padding: 22px 28px;">
+          <span class="label">SAM · Hizmet Verilebilir</span>
+          <div class="num-big" style="color: white; font-size: 56px; line-height: 1.1;">₺125B</div>
+          <p class="body" style="font-size: 13px; margin-top: 6px;">İstanbul + Ankara + İzmir + Bursa · ilk 4 il</p>
+        </div>
+        <div class="card emerald" style="padding: 22px 28px;">
+          <span class="label" style="color: hsl(0 0% 100% / 0.7);">SOM · 3 yılda hedef</span>
+          <div class="num-big" style="color: white; font-size: 56px; line-height: 1.1;">₺6.2B</div>
+          <p class="body" style="font-size: 13px; margin-top: 6px; color: hsl(0 0% 100% / 0.85);">SAM'in %5'i · <span class="zc">ZeCorner</span> ağıyla erişilebilir taban</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hedef segmentler -->
+    <div style="margin-top: 28px;">
+      <div class="eyebrow" style="color: var(--terracotta-glow); margin-bottom: 12px;">Hedef Segmentler</div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
+        <div style="background: hsl(38 28% 95% / 0.04); border: 1px solid var(--rule-on-ink); border-radius: 12px; padding: 16px 18px;">
+          <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terracotta-glow); margin-bottom: 6px;">01 · Birincil</div>
+          <h4 style="color: white; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 4px;">Kentli Kiracı</h4>
+          <p style="color: hsl(36 14% 75%); font-size: 11.5px; line-height: 1.45; margin: 0;">25-45 yaş, hareketli, dijital odaklı. Şehir değiştiren beyaz yakalı + öğrenci.</p>
+        </div>
+        <div style="background: hsl(38 28% 95% / 0.04); border: 1px solid var(--rule-on-ink); border-radius: 12px; padding: 16px 18px;">
+          <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terracotta-glow); margin-bottom: 6px;">02 · İkincil</div>
+          <h4 style="color: white; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 4px;">Yatırımcı Ev Sahibi</h4>
+          <p style="color: hsl(36 14% 75%); font-size: 11.5px; line-height: 1.45; margin: 0;">Portföyünü "iyi bina rozetiyle" değerlendirip premium kira isteyen.</p>
+        </div>
+        <div style="background: hsl(158 65% 42% / 0.10); border: 1px solid hsl(158 65% 42% / 0.3); border-radius: 12px; padding: 16px 18px;">
+          <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--emerald-glow); margin-bottom: 6px;">03 · B2B</div>
+          <h4 style="color: white; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 4px;">Kurumsal Partner</h4>
+          <p style="color: hsl(36 14% 75%); font-size: 11.5px; line-height: 1.45; margin: 0;"><span class="zc">ZeCorner</span> gibi franchise emlakçı zincirleri + corporate housing.</p>
+        </div>
+        <div style="background: hsl(38 28% 95% / 0.04); border: 1px solid var(--rule-on-ink); border-radius: 12px; padding: 16px 18px;">
+          <div style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terracotta-glow); margin-bottom: 6px;">04 · Veri Tarafı</div>
+          <h4 style="color: white; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 4px;">Rezidans / Site</h4>
+          <p style="color: hsl(36 14% 75%); font-size: 11.5px; line-height: 1.45; margin: 0;">Yönetim firmaları + GYO'lar · Trivago/Booking benzeri puan rozeti.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>10 / 17</span>
+      <span>Kaynaklar: TÜİK 2024, GYODER 2024</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 10 — MEVCUT DURUM (was Trakşiyon)
+       ============================================================ -->
+  <section class="slide" data-screen-label="11 Mevcut Durum">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>11 · Mevcut Durum</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="eyebrow">Şu an neredeyiz</div>
+      <h2 class="display">
+        Web hazır. Sistem çalışıyor.<br>
+        <span class="hl">Lansmana 45 gün.</span>
+      </h2>
+
+      <div class="grid-4" style="margin-top: 44px;">
+        <div class="card featured">
+          <span class="label">Ürün</span>
+          <div class="num-big" style="color: var(--terracotta-glow); font-size: 80px;">8</div>
+          <h4 class="h4" style="margin-top: 12px;">Sayfa canlı</h4>
+          <p class="body" style="font-size: 14px; margin-top: 8px;">Splash · TR seçim · sokak detay · yorum yaz · kullanıcı paneli · ev sahibi paneli · admin moderasyon · raporlama.</p>
+        </div>
+        <div class="card featured">
+          <span class="label">Veritabanı</span>
+          <div class="num-big" style="color: var(--terracotta-glow); font-size: 80px;">9</div>
+          <h4 class="h4" style="margin-top: 12px;">Migration uygulandı</h4>
+          <p class="body" style="font-size: 14px; margin-top: 8px;">Postgres + PostGIS + RLS politikaları · users / properties / reviews / verifications / k-pass.</p>
+        </div>
+        <div class="card featured">
+          <span class="label">Seed</span>
+          <div class="num-big" style="color: var(--terracotta-glow); font-size: 80px;">112</div>
+          <h4 class="h4" style="margin-top: 12px;">Mock mülk hazır</h4>
+          <p class="body" style="font-size: 14px; margin-top: 8px;">Demo amaçlı 4 ana ilçe · pin clustering ve harita test verisi.</p>
+        </div>
+        <div class="card featured">
+          <span class="label">Süre</span>
+          <div class="num-big" style="color: var(--emerald-glow); font-size: 80px;">45 gün</div>
+          <h4 class="h4" style="margin-top: 12px;">Kapalı beta'ya kalan</h4>
+          <p class="body" style="font-size: 14px; margin-top: 8px;">e-Devlet entegrasyonu + KVKK denetim + <span class="zc">ZeCorner</span> pilot 5 ofis.</p>
+        </div>
+      </div>
+
+      <div class="row gap-32" style="margin-top: 36px;">
+        <div style="flex: 1; padding: 24px; background: var(--paper-warm); border-radius: 14px; border-left: 3px solid var(--terracotta);">
+          <span class="label">Tamamlandı</span>
+          <ul class="tight" style="margin-top: 6px;">
+            <li>Adres normalleştirme (UAVT şema uyumlu)</li>
+            <li>8 eksen yapısal puanlama UI</li>
+            <li>Pin clustering · POI overlay (Google Places)</li>
+            <li>n8n moderasyon zinciri (Claude AI)</li>
+            <li>RLS politikaları (yorum / kullanıcı / belge)</li>
+          </ul>
+        </div>
+        <div style="flex: 1; padding: 24px; background: var(--paper-warm); border-radius: 14px; border-left: 3px solid var(--emerald);">
+          <span class="label">Lansmana kalan</span>
+          <ul class="tight" style="margin-top: 6px;">
+            <li>e-Devlet API başvurusu (Q3 2026)</li>
+            <li>K-Pass üye esnaf ağı (50 lokasyon hedef)</li>
+            <li>Iyzico CheckoutForm 3D-Secure entegrasyonu</li>
+            <li>KVKK Kurulu denetim raporu</li>
+            <li><span class="zc">ZeCorner</span> pilot — İstanbul 5 ofis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>11 / 17</span>
+      <span>Mevcut durum</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 11 — RISKS
+       ============================================================ -->
+  <section class="slide ink-deep" data-screen-label="12 Riskler">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>12 · Riskler & Yönetim</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="eyebrow">Riskler & Yönetim</div>
+      <h2 class="display">
+        Soruyu önce <span class="hl">biz</span> soruyoruz —<br>
+        çünkü her birinin <span class="hl-em">somut yönetimi</span> hazır.
+      </h2>
+
+      <div style="margin-top: 36px;">
+        <div class="risk-row">
+          <div class="rnum">01</div>
+          <div class="rrisk">
+            <h4>e-Devlet API'si açılmazsa</h4>
+            <p>Cumhurbaşkanlığı Dijital Dönüşüm Ofisi onayı kritik yol. Başvuru 6-9 ay sürebilir, ret olasılığı düşük ama sıfır değil.</p>
+          </div>
+          <div class="rmit">
+            <div class="lab">Yönetim</div>
+            <p>OCR fallback hazır — kira sözleşmesi fotoğrafı (30 gün TTL) + DASK + fatura üçlüsü manuel inceleme. Hız 0 saniyeden 24 saate çıkar; doğrulama oranı korunur.</p>
+          </div>
+        </div>
+
+        <div class="risk-row">
+          <div class="rnum">02</div>
+          <div class="rrisk">
+            <h4>Sahte yorum / rakip sabotajı</h4>
+            <p>Bot kayıtlar, organize troll kampanyaları, ev sahibinin kendi binasına intikam yorumları.</p>
+          </div>
+          <div class="rmit">
+            <div class="lab">Yönetim</div>
+            <p>4 katmanlı KYC (SMS + liveness + e-Devlet + kart) + akıllı moderasyon (n8n + Claude AI hava boşluğu) + same-IP / same-device deduplication. Tek yorum bile manuel onaysız geçemez.</p>
+          </div>
+        </div>
+
+        <div class="risk-row">
+          <div class="rnum">03</div>
+          <div class="rrisk">
+            <h4>Ev sahibi tarafından açılan dava</h4>
+            <p>Maskelemeye rağmen "M.K." adres + dönem ile tanımlanabilir; KVKK 6. madde özel nitelikli veri argümanı gelebilir.</p>
+          </div>
+          <div class="rmit">
+            <div class="lab">Yönetim</div>
+            <p>Kıdemli KVKK avukatı görüşü (Q3 hazır) + 5651 yer sağlayıcı çerçevesi + 24 saat içerik kaldırma SLA + her yorumda yapısal puan + ölçülü dil.</p>
+          </div>
+        </div>
+
+        <div class="risk-row">
+          <div class="rnum">04</div>
+          <div class="rrisk">
+            <h4>K-Pass anahtar kaybı / hasar</h4>
+            <p>Müşteri evi gezerken eşya zarar görür, anahtar kaybolur, kötüye kullanım yapılır.</p>
+          </div>
+          <div class="rmit">
+            <div class="lab">Yönetim</div>
+            <p>₺50K Iyzico provizyon (Faz 1 self-insurance) + Faz 2'de Allianz/AXA grup poliçesi · çift QR + AI foto-diff + paymentId = elektronik delil zinciri (PostgreSQL'de senet gibi).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>12 / 17</span>
+      <span>Riskler & yönetim</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 12 — TEAM
+       ============================================================ -->
+  <section class="slide ink" data-screen-label="13 Takım">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>13 · Takım</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="eyebrow">Takım</div>
+      <h2 class="display">
+        Kurucu <span class="hl">var</span>.<br>
+        Anahtar pozisyonlar <span class="hl-em"><span class="zc">ZeCorner</span> ortaklığıyla</span> dolacak.
+      </h2>
+      <p class="lede" style="margin-top: 24px;">
+        Mevcut sistem tek başına geliştirildi — ürün-pazar uyumunu doğrulayacak kadar olgun.
+        <span class="zc">ZeCorner</span> yatırımı sonrası ilk 6 ay içinde alınacak <strong>4 anahtar pozisyon</strong> aşağıda.
+      </p>
+
+      <div class="grid-5" style="margin-top: 32px;">
+        <div class="team-card lead">
+          <div class="avatar">KD</div>
+          <h4>Koray Duman</h4>
+          <div class="role-line">Kurucu / CEO</div>
+          <p>Ürün, vizyon, mevcut teknik mimari · 8 sayfa, 9 migration, 4 ana akış sıfırdan inşa.</p>
+        </div>
+        <div class="team-card role">
+          <div class="avatar">CTO</div>
+          <h4>Aranıyor</h4>
+          <div class="role-line">CTO · Faz 1, ay +1</div>
+          <p>Ölçek mimarisi, K-Pass donanım entegrasyonu, mobile native ekipler. Backend lead deneyimi şart.</p>
+        </div>
+        <div class="team-card role">
+          <div class="avatar">OPS</div>
+          <h4>Aranıyor</h4>
+          <div class="role-line">Head of Ops · ay +2</div>
+          <p>K-Pass üye esnaf ağı, kabin operasyonu, sigortacı ilişkileri, KYC süreçleri.</p>
+        </div>
+        <div class="team-card role">
+          <div class="avatar">LGL</div>
+          <h4>Aranıyor</h4>
+          <div class="role-line">KVKK Hukuk · ay +1</div>
+          <p>Senior KVKK avukatı (danışman model). e-Devlet başvuru, içerik kaldırma SLA, 5651 protokol.</p>
+        </div>
+        <div class="team-card role">
+          <div class="avatar">GR</div>
+          <h4>Aranıyor</h4>
+          <div class="role-line">Growth · ay +3</div>
+          <p><span class="zc">ZeCorner</span> ofis aktivasyon, kiracı acquisition, B2B çözüm satışı (DaaS, bina rozet, banka skoru).</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 36px; padding: 28px 36px; background: hsl(14 60% 38% / 0.08); border: 1px solid hsl(14 60% 38% / 0.25);">
+        <div class="row between center">
+          <p style="font-family: var(--font-serif); font-style: italic; font-size: 22px; color: white;">
+            "<span class="zc">ZeCorner</span> sermayesi 6 ay içinde 4 anahtar koltuğu kapatır.
+            Ay 12'ye kadar takım tam, sistem ulusal lansmana hazır."
+          </p>
+          <div class="pill emerald solid"><span class="dot"></span>4 koltuk · 6 ay</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>13 / 17</span>
+      <span>Takım planı</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 13 — INVESTMENT & RETURN (yeni slayt)
+       ============================================================ -->
+  <section class="slide" data-screen-label="14 Yatırım & Geri Dönüş">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>14 · Yatırım</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 44px; flex: 1;">
+      <div class="eyebrow">Yatırım & Geri Dönüş</div>
+      <h2 class="display-sm">
+        $1.1M · <span class="hl">28 ayda break-even</span>.<br>
+        5 gelir kalemi paralel açılır.
+      </h2>
+
+      <div class="grid-2" style="margin-top: 40px; gap: 56px; align-items: start;">
+        <!-- Sol: Yatırım kullanım dağılımı -->
+        <div class="stack">
+          <div class="label" style="margin-bottom: 18px;">$1.1M Nereye Gidiyor</div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: grid; grid-template-columns: 60px 1fr 90px; gap: 14px; align-items: center;">
+              <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--terracotta);">35%</div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-on-paper);">Ürün & Mühendislik</div>
+                <div style="font-size: 11px; color: var(--text-mute);">CTO + 2 senior, K-Pass donanım entegrasyonu, mobil native</div>
+              </div>
+              <div style="text-align: right; font-family: var(--font-mono); font-size: 13px; color: var(--text-on-paper); font-weight: 600;">$385K</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 60px 1fr 90px; gap: 14px; align-items: center;">
+              <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--terracotta);">25%</div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-on-paper);">Operasyon & Esnaf Ağı</div>
+                <div style="font-size: 11px; color: var(--text-mute);">Head of Ops, ilk 200 üye esnaf onboarding, kabin pilot</div>
+              </div>
+              <div style="text-align: right; font-family: var(--font-mono); font-size: 13px; color: var(--text-on-paper); font-weight: 600;">$275K</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 60px 1fr 90px; gap: 14px; align-items: center;">
+              <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--terracotta);">15%</div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-on-paper);">Pazarlama & Acquisition</div>
+                <div style="font-size: 11px; color: var(--text-mute);"><span class="zc">ZeCorner</span> ofis aktivasyon, kiracı edinim, içerik</div>
+              </div>
+              <div style="text-align: right; font-family: var(--font-mono); font-size: 13px; color: var(--text-on-paper); font-weight: 600;">$165K</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 60px 1fr 90px; gap: 14px; align-items: center;">
+              <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--terracotta);">15%</div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-on-paper);">Hukuk & Compliance</div>
+                <div style="font-size: 11px; color: var(--text-mute);">KVKK avukatı, e-Devlet entegrasyonu, sigortacı sözleşmeleri</div>
+              </div>
+              <div style="text-align: right; font-family: var(--font-mono); font-size: 13px; color: var(--text-on-paper); font-weight: 600;">$165K</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 60px 1fr 90px; gap: 14px; align-items: center;">
+              <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--terracotta);">10%</div>
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-on-paper);">Runway tamponu</div>
+                <div style="font-size: 11px; color: var(--text-mute);">12 ay tampon · sürpriz harcamalar + provizyon havuzu seed</div>
+              </div>
+              <div style="text-align: right; font-family: var(--font-mono); font-size: 13px; color: var(--text-on-paper); font-weight: 600;">$110K</div>
+            </div>
+          </div>
+
+          <!-- Break-even kutu -->
+          <div style="margin-top: 24px; padding: 20px 24px; background: hsl(158 65% 42% / 0.08); border: 1px solid hsl(158 65% 42% / 0.3); border-radius: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              <div>
+                <div class="label" style="color: var(--emerald); margin-bottom: 4px;">Break-even</div>
+                <div style="font-size: 13px; color: var(--text-on-paper);">28. ay · <span class="zc">ZeCorner</span> ağı + B2B gelir kalemleri devrede</div>
+              </div>
+              <div style="font-size: 36px; font-weight: 700; color: var(--emerald); letter-spacing: -0.03em; line-height: 1;">Ay 28</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ: 5 Gelir kalemi -->
+        <div class="stack">
+          <div class="label" style="margin-bottom: 18px;">5 Gelir Kalemi</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="padding: 16px 18px; border: 1px solid var(--rule); border-radius: 12px; background: white;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <h4 style="font-size: 15px; font-weight: 600; color: var(--text-on-paper); margin: 0;">01 · Ekspertiz Raporu</h4>
+                <span style="font-family: var(--font-mono); font-size: 12px; color: var(--terracotta); font-weight: 600;">B2C</span>
+              </div>
+              <p style="font-size: 12px; color: var(--text-mute); margin: 0;">Premium kiracı: ₺49 / yorum + adres puanı PDF · ortalama 8K/ay</p>
+            </div>
+            <div style="padding: 16px 18px; border: 1px solid var(--rule); border-radius: 12px; background: white;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <h4 style="font-size: 15px; font-weight: 600; color: var(--text-on-paper); margin: 0;">02 · K-Pass Komisyon Paylaşımı</h4>
+                <span style="font-family: var(--font-mono); font-size: 12px; color: var(--terracotta); font-weight: 600;">B2B2C</span>
+              </div>
+              <p style="font-size: 12px; color: var(--text-mute); margin: 0;">Üye esnaf ağından her gezdirme · <span class="zc">ZeCorner</span> emlakçı ayda +15 kiracı</p>
+            </div>
+            <div style="padding: 16px 18px; border: 2px solid var(--terracotta); border-radius: 12px; background: hsl(14 60% 38% / 0.04); position: relative;">
+              <span style="position: absolute; top: -10px; left: 14px; padding: 2px 10px; background: var(--terracotta); color: white; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 4px;">YENİ</span>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <h4 style="font-size: 15px; font-weight: 700; color: var(--terracotta); margin: 0;">03 · Rezidans / Site Puanlama</h4>
+                <span style="font-family: var(--font-mono); font-size: 12px; color: var(--terracotta); font-weight: 600;">B2B</span>
+              </div>
+              <p style="font-size: 12px; color: var(--text-on-paper); margin: 0;">
+                <strong>Trivago / Booking analojisi:</strong> <span class="zc">ZeCorner</span> deneyimli emlakçıları sisteme girdiği bina ve siteleri puanlar.
+                Yatırımcı + kiracı için "güven endeksi". Premium rezidans yönetimine ₺45K-180K/yıl SaaS.
+              </p>
+            </div>
+            <div style="padding: 16px 18px; border: 1px solid var(--rule); border-radius: 12px; background: white;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <h4 style="font-size: 15px; font-weight: 600; color: var(--text-on-paper); margin: 0;">04 · Bina Yönetimi Rozeti</h4>
+                <span style="font-family: var(--font-mono); font-size: 12px; color: var(--terracotta); font-weight: 600;">B2B</span>
+              </div>
+              <p style="font-size: 12px; color: var(--text-mute); margin: 0;">Bina yöneticileri "doğrulanmış iyi yönetim" rozeti satın alır · ₺2.400/yıl</p>
+            </div>
+            <div style="padding: 16px 18px; border: 1px solid var(--rule); border-radius: 12px; background: white;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <h4 style="font-size: 15px; font-weight: 600; color: var(--text-on-paper); margin: 0;">05 · DaaS — Veri Lisanslama</h4>
+                <span style="font-family: var(--font-mono); font-size: 12px; color: var(--terracotta); font-weight: 600;">B2B</span>
+              </div>
+              <p style="font-size: 12px; color: var(--text-mute); margin: 0;">Anonim agregat · banka kira skoru + GYO yatırım pipeline'ı · ₺120K/yıl</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>14 / 17</span>
+      <span>$1.1M kullanım + 5 gelir kalemi</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 14 — ROADMAP (eski 13)
+       ============================================================ -->
+  <section class="slide" data-screen-label="15 Roadmap">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>15 · Roadmap</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="eyebrow">Roadmap</div>
+      <h2 class="display">
+        Lansmandan ulusal hakimiyete —<br>
+        <span class="hl">2026 yılı sonuna kadar.</span>
+      </h2>
+
+      <div class="roadmap">
+        <div class="rmcol">
+          <div class="when">Q1 2026 · şu an</div>
+          <h4>Hazırlık</h4>
+          <ul class="tight">
+            <li>e-Devlet API başvurusu</li>
+            <li>KVKK denetim raporu</li>
+            <li>İlk 2 <span class="zc">ZeCorner</span> pilot ofis</li>
+            <li>Iyzico 3D-Secure canlı</li>
+            <li>Hukuk danışmanı görüşü</li>
+          </ul>
+        </div>
+        <div class="rmcol">
+          <div class="when">Q2 2026 · lansman</div>
+          <h4>Faz 1: Yorum + K-Pass</h4>
+          <ul class="tight">
+            <li>İstanbul 5 ofis canlı</li>
+            <li>Üye esnaf ağı 50 lokasyon</li>
+            <li>İlk 1.000 yorum hedefi</li>
+            <li>K-Pass çift QR + provizyon</li>
+            <li>Marka kampanyası başlangıç</li>
+          </ul>
+        </div>
+        <div class="rmcol">
+          <div class="when">Q3 2026</div>
+          <h4>Faz 2: Ulusal genişleme</h4>
+          <ul class="tight">
+            <li>30 <span class="zc">ZeCorner</span> ofisi tam entegre</li>
+            <li>Ankara + İzmir + Bursa açılış</li>
+            <li>Allianz/AXA grup poliçe</li>
+            <li>K-Pass akıllı kabin pilot</li>
+            <li>10K yorum kümülatif</li>
+          </ul>
+        </div>
+        <div class="rmcol future">
+          <div class="when">Q4 2026</div>
+          <h4>Faz 3: B2B + Veri tekeli</h4>
+          <ul class="tight">
+            <li>Kentsel risk skoru API</li>
+            <li>DaaS satışları (banka, sigorta)</li>
+            <li>Rezidans puanlama platformu</li>
+            <li>Bina rozet + bilirkişi raporu</li>
+            <li>"Yorumlu emlakçı" kategorisi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>15 / 17</span>
+      <span>4 çeyreklik plan · 2026 sonuna kadar tam dağılım</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 14 — ZECORNER ROI (KARAR SLAYTI)
+       ============================================================ -->
+  <section class="slide ink-deep" data-screen-label="16 ZeCorner ROI">
+    <div class="rail">
+      <div class="wordmark"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right"><span>16 · <span class="zc">ZeCorner</span> için ROI</span></div>
+    </div>
+
+    <div class="stack" style="margin-top: 32px; flex: 1;">
+      <div class="row between" style="align-items: flex-end; margin-bottom: 24px;">
+        <div>
+          <div class="eyebrow" style="color: var(--emerald-glow);">Karar slaytı</div>
+          <h2 class="display-sm">
+            <span class="zc">ZeCorner</span> için <span class="hl-em">ortaklık</span> — yatırım değil, <em style="font-family: var(--font-serif); color: var(--terracotta-glow);">stratejik konum</em>.
+          </h2>
+        </div>
+        <div style="text-align: right;">
+          <span class="pill emerald solid" style="margin-bottom: 12px;">
+            <span class="dot"></span>Türkiye Münhasır
+          </span>
+          <p class="body" style="font-size: 15px; max-width: 340px; text-align: right;">
+            5 yıl boyunca KiralıYorum'un Türkiye distribütörü tek kuruluş: <span class="zc">ZeCorner</span>.
+          </p>
+        </div>
+      </div>
+
+      <table class="roi-table">
+        <thead>
+          <tr>
+            <th style="width: 40%;"><span class="zc">ZeCorner</span> için 3 yıllık projeksiyon</th>
+            <th style="text-align: right;">Yıl 1</th>
+            <th style="text-align: right;">Yıl 2</th>
+            <th style="text-align: right;">Yıl 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label"><span class="zc">ZeCorner</span> ofis sayısı (entegre)</td>
+            <td class="num">5</td>
+            <td class="num">20</td>
+            <td class="num">35</td>
+          </tr>
+          <tr>
+            <td class="label">Ofis başına ortalama kira işlemi</td>
+            <td class="num">120</td>
+            <td class="num">180</td>
+            <td class="num">240</td>
+          </tr>
+          <tr>
+            <td class="label">KiralıYorum kaynaklı ek müşteri akışı</td>
+            <td class="num">600</td>
+            <td class="num">3,600</td>
+            <td class="num">8,400</td>
+          </tr>
+          <tr>
+            <td class="label">Ortalama komisyon (₺)</td>
+            <td class="num">25,000</td>
+            <td class="num">28,000</td>
+            <td class="num">32,000</td>
+          </tr>
+          <tr class="highlight">
+            <td class="label" style="color: var(--emerald-glow);"><strong><span class="zc">ZeCorner</span>'a ek komisyon geliri</strong></td>
+            <td class="num em">₺15M</td>
+            <td class="num em">₺101M</td>
+            <td class="num em">₺269M</td>
+          </tr>
+          <tr>
+            <td class="label">+ KiralıYorum hisse değeri (%12)</td>
+            <td class="num" style="color: var(--text-mute-on-ink); font-size: 18px;">~₺5M</td>
+            <td class="num" style="color: var(--text-mute-on-ink); font-size: 18px;">~₺28M</td>
+            <td class="num" style="color: var(--text-mute-on-ink); font-size: 18px;">~₺95M</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 36px; padding: 28px 36px; background: var(--terracotta); border-radius: 16px; display: flex; justify-content: space-between; align-items: center; gap: 32px;">
+        <div>
+          <div class="label" style="color: hsl(0 0% 100% / 0.7); margin: 0 0 8px;">Stratejik ortaklık önerisi</div>
+          <h3 class="h3" style="color: white;">$500K · %12 hisse · 1 yönetim koltuğu · 5 yıl Türkiye münhasırlığı</h3>
+        </div>
+        <div style="text-align: right;">
+          <div class="num-big" style="color: white; font-size: 76px; line-height: 1;">17×</div>
+          <div class="label" style="color: hsl(0 0% 100% / 0.7); margin-top: 4px;">3-yıl ROI projeksiyonu</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-meta">
+      <span>16 / 17</span>
+      <span><span class="zc">ZeCorner</span> için ROI</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 15 — VISION / FINAL
+       ============================================================ -->
+  <section class="slide" data-screen-label="17 Vizyon" style="padding: 0;">
+    <div class="final-bg"></div>
+    <div class="rail" style="z-index: 2;">
+      <div class="wordmark" style="color: white;"><span class="key"></span>Kiralı<span class="yor">Yorum</span></div>
+      <div class="right" style="color: hsl(36 14% 70%);"><span>17 · Vizyon</span></div>
+    </div>
+
+    <div class="final-content" style="padding: 56px 110px;">
+      <div class="eyebrow" style="color: var(--terracotta-glow);">Vizyon</div>
+
+      <h1 class="display-xl" style="color: white; max-width: 1500px;">
+        10 yıl içinde <em style="font-family: var(--font-serif); color: var(--terracotta-glow); font-weight: 400;">"hangi mahalleye<br>taşınalım?"</em> sorusunun<br>
+        ilk cevabı <span class="em-emerald" style="font-family: var(--font-serif); color: var(--emerald-glow); font-weight: 400; font-style: italic;">KiralıYorum</span>.
+      </h1>
+
+      <p class="lede" style="margin-top: 32px; max-width: 920px; color: hsl(36 28% 85%); font-size: 24px; line-height: 1.5;">
+        Bugün <strong style="color: white;">7 milyon kiracının</strong> haksızlık hikâyesi var.
+        KiralıYorum bu hikâyeleri <strong style="color: white;">yapısal veriye</strong>,
+        veriyi <strong style="color: white;">güvene</strong>,
+        güveni de <strong style="color: white;">yeni nesil emlakçılığa</strong> çevirir.
+        <span class="zc">ZeCorner</span> ile birlikte bu yolculuğu <strong style="color: var(--emerald-glow);">3 yıl kısaltırız</strong>.
+      </p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px;">
+        <span class="pill" style="background: hsl(14 60% 38% / 0.18); color: var(--terracotta-glow); border-color: hsl(14 60% 38% / 0.4);"><span class="dot"></span>7M Kiracı</span>
+        <span class="pill" style="background: hsl(14 60% 38% / 0.18); color: var(--terracotta-glow); border-color: hsl(14 60% 38% / 0.4);"><span class="dot"></span>e-Devlet Onaylı</span>
+        <span class="pill" style="background: hsl(14 60% 38% / 0.18); color: var(--terracotta-glow); border-color: hsl(14 60% 38% / 0.4);"><span class="dot"></span>KVKK Uyumlu</span>
+        <span class="pill" style="background: hsl(158 65% 42% / 0.16); color: var(--emerald-glow); border-color: hsl(158 65% 42% / 0.4);"><span class="dot"></span>PoC Hazır</span>
+        <span class="pill" style="background: hsl(158 65% 42% / 0.16); color: var(--emerald-glow); border-color: hsl(158 65% 42% / 0.4);"><span class="dot"></span>36 Ay Plan</span>
+        <span class="pill" style="background: hsl(158 65% 42% / 0.16); color: var(--emerald-glow); border-color: hsl(158 65% 42% / 0.4);"><span class="dot"></span>$5.5M Değerleme</span>
+      </div>
+
+      <div style="margin-top: 96px; display: flex; gap: 80px; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: hsl(36 14% 65%);">
+        <div>Koray Duman<br><strong style="color: white; font-family: var(--font-sans); font-size: 16px; letter-spacing: -0.01em; text-transform: none; font-weight: 600; margin-top: 6px; display: block;">Kurucu · KiralıYorum</strong></div>
+        <div>İletişim<br><strong style="color: white; font-family: var(--font-sans); font-size: 16px; letter-spacing: -0.01em; text-transform: none; font-weight: 600; margin-top: 6px; display: block;">koray@kiraliyorum.com</strong></div>
+        <div>Web<br><strong style="color: white; font-family: var(--font-sans); font-size: 16px; letter-spacing: -0.01em; text-transform: none; font-weight: 600; margin-top: 6px; display: block;">kiraliyorum.com</strong></div>
+      </div>
+    </div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>
